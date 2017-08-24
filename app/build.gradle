@@ -1,0 +1,89 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+//Version information
+def versionMajor = 0
+def versionMinor = 1
+def versionPatch = 0
+
+android {
+    compileSdkVersion rootProject.targetSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+    defaultConfig {
+        applicationId "br.com.disapps.homepet"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode versionMajor * 1000000 + versionMinor * 1000 + versionPatch * 100
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+
+
+    buildTypes {
+        debug {
+            buildConfigField 'boolean', 'HTTP_LOG_ENABLED', "true"
+            buildConfigField 'String', 'HOST', '"http://192.168.1.8/homepet"'
+        }
+        release {
+            buildConfigField 'boolean', 'HTTP_LOG_ENABLED', "false"
+            buildConfigField 'String', 'HOST', '"http://192.168.1.8/homepet"'
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.0'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
+    implementation 'com.google.android.gms:play-services-maps:11.2.0'
+
+    // Android Support Library
+    implementation "com.android.support:appcompat-v7:$rootProject.supportVersion"
+    implementation "com.android.support:design:$rootProject.supportVersion"
+    implementation "com.android.support:recyclerview-v7:$rootProject.supportVersion"
+    implementation "com.android.support:cardview-v7:$rootProject.supportVersion"
+    implementation "com.android.support:support-v4:$rootProject.supportVersion"
+    implementation "com.android.support.constraint:constraint-layout:$rootProject.constraintLayoutVersion"
+    implementation "com.android.support:support-vector-drawable:$rootProject.constraintLayoutVersion"
+
+    //BaseRecyclerViewAdapterHelper
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.26'
+
+    // ButterKnife
+    implementation "com.jakewharton:butterknife:$rootProject.butterKnifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterKnifeVersion"
+
+    // Mosby Mvp
+    implementation 'com.hannesdorfmann.mosby3:mvp:3.0.4' // Plain MVP
+
+    // Fresco
+    implementation 'com.facebook.fresco:fresco:1.4.0'
+
+    // Retrofit & OkHttp
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
+    debugImplementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpVersion"
+
+    // OkHttp
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpVersion"
+
+    // Rx
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
+    implementation "com.github.VictorAlbertos.RxCache:runtime:$rootProject.rxCacheVersion"
+    annotationProcessor "com.github.VictorAlbertos.RxCache:compiler:$rootProject.rxCacheVersion"
+    implementation "com.github.VictorAlbertos.Jolyglot:gson:$rootProject.rxCacheGsonVersion"
+
+
+    implementation 'com.firebase:firebase-jobdispatcher:0.5.2'
+
+}
