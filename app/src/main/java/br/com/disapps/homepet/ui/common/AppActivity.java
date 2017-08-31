@@ -35,6 +35,7 @@ public abstract class AppActivity extends AppCompatActivity implements IAppActiv
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupBroadcastReceiver(true);
     }
 
     @Override

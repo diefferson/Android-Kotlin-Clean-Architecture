@@ -18,6 +18,7 @@ class Preferences(context: Context) {
         val AUTH_KEY = "auth-key"
         val AUTH_RENEW = "auth-renew"
         val AUTH_EXPIRES_AT_KEY = "auth-expires_at"
+        val AUTH_KEY_TYPE = "auth-key_type"
         val PROFILE_UUID_KEY = "profile-uuid"
         val PROFILE_NAME_KEY = "profile-name"
     }
@@ -31,9 +32,10 @@ class Preferences(context: Context) {
 
     val auth: Auth
         get() {
-            val auth = Auth( mPreferences.getString(AUTH_KEY, ""),
-                                mPreferences.getString(AUTH_RENEW, ""),
-                                mPreferences.getString(AUTH_EXPIRES_AT_KEY, "")
+            val auth = Auth(    mPreferences.getString(AUTH_KEY, ""),
+                                mPreferences.getString(AUTH_KEY_TYPE, ""),
+                                mPreferences.getString(AUTH_EXPIRES_AT_KEY, ""),
+                                mPreferences.getString(AUTH_RENEW, "")
                             )
             return auth
         }
@@ -50,10 +52,11 @@ class Preferences(context: Context) {
 
     fun saveAuth(auth: Auth) {
         mPreferences.edit()
-                .putString(AUTH_KEY, auth.key)
-                .putString(AUTH_RENEW, auth.renew)
-                .putString(AUTH_EXPIRES_AT_KEY, auth.expiresAt)
-                .commit()
+                .putString(AUTH_KEY, auth.accessToken)
+                .putString(AUTH_RENEW, auth.refreshToken)
+                .putString(AUTH_EXPIRES_AT_KEY, auth.expiresIn)
+                .putString(AUTH_KEY_TYPE, auth.tokenType)
+                .apply()
     }
 
 

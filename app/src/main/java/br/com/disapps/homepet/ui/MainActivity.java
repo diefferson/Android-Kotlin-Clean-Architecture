@@ -3,15 +3,15 @@ package br.com.disapps.homepet.ui;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import br.com.disapps.homepet.R;
+import br.com.disapps.homepet.app.HomePet;
 import br.com.disapps.homepet.ui.common.AppActivity;
-import br.com.disapps.homepet.ui.home.HomeFragment;
+import br.com.disapps.homepet.ui.hotels.HotelsFragment;
+import br.com.disapps.homepet.ui.login.LoginFragment;
 import br.com.disapps.homepet.ui.map.MapFragment;
 import br.com.disapps.homepet.ui.profile.ProfileFragment;
 import butterknife.BindView;
@@ -46,13 +46,17 @@ public class MainActivity extends AppActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                        replaceFragment(HomeFragment.newInstance());
+                        replaceFragment(HotelsFragment.newInstance());
                     return true;
                 case R.id.navigation_map:
                         replaceFragment(MapFragment.newInstance());
                     return true;
                 case R.id.navigation_profile:
-                        replaceFragment(ProfileFragment.newInstance());
+                        if(HomePet.Companion.getInstance().getPreferences().isLogged()){
+                            replaceFragment(ProfileFragment.newInstance());
+                        }else{
+                            replaceFragment(LoginFragment.newInstance());
+                        }
                     return true;
             }
             return false;

@@ -1,4 +1,4 @@
-package br.com.disapps.homepet.ui.home;
+package br.com.disapps.homepet.ui.hotels;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 
@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.disapps.homepet.data.cache.HomePetRepository;
+import br.com.disapps.homepet.data.cache.HotelRepository;
 import br.com.disapps.homepet.data.model.Hotel;
-import br.com.disapps.homepet.data.ws.response.ApiResponse;
+import br.com.disapps.homepet.data.ws.response.ApiListResponse;
 import br.com.disapps.homepet.util.rx.IErrorHandlerHelper;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -19,22 +20,22 @@ import io.reactivex.schedulers.Schedulers;
  * Created by diefferson.santos on 23/08/17.
  */
 
-public class HomePresenter extends MvpBasePresenter<IHomeView> {
+public class HotelsPresenter extends MvpBasePresenter<IHotelsView> {
 
-    private final HomePetRepository mHomePetRepository;
+    private final HotelRepository mHotelRepository;
     private final CompositeDisposable disposables = new CompositeDisposable();
 
-    public HomePresenter(HomePetRepository homePetRepository){
-        mHomePetRepository = homePetRepository;
+    public HotelsPresenter(HotelRepository hotelRepository){
+        mHotelRepository = hotelRepository;
     }
 
     public void loadHoteis(){
-        disposables.add(mHomePetRepository.getHoteis(true)
+        disposables.add(mHotelRepository.getHoteis(getView().hasInternetConnection())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<ApiResponse<Hotel>>() {
+                .subscribeWith(new DisposableObserver<ApiListResponse<Hotel>>() {
                     @Override
-                    public void onNext(ApiResponse<Hotel> response) {
+                    public void onNext(ApiListResponse<Hotel> response) {
 
                         List<Hotel> hoteis = response.getContent();
 
@@ -46,7 +47,7 @@ public class HomePresenter extends MvpBasePresenter<IHomeView> {
                     @Override
                     public void onError(Throwable e) {
                         if(isViewAttached()){
-                            IErrorHandlerHelper.defaultErrorResolver(HomePresenter.this.getView(), e);
+                            IErrorHandlerHelper.defaultErrorResolver(HotelsPresenter.this.getView(), e);
                         }
                     }
 
@@ -63,11 +64,13 @@ public class HomePresenter extends MvpBasePresenter<IHomeView> {
     }
 
 
-    private ApiResponse<Hotel> generateHoteis(){
+    private ApiListResponse<Hotel> generateHoteis(){
 
         Hotel hotel = new Hotel();
-        hotel.setNome("Nome Hotel");
-        hotel.setUrlImagemCapa("https://exp.cdn-hotels.com/hotels/1000000/150000/140600/140596/140596_275_z.jpg");
+        hotel.setName("Nome Hotel");
+        hotel.setCoverImage("https://exp.cdn-hotels.com/hotels/1000000/150000/140600/140596/140596_275_z.jpg");
+        hotel.setRating(4.3F);
+        hotel.setRatingsNumber(53);
 
         List<Hotel> hoteis = new ArrayList<Hotel>();
         hoteis.add(hotel);
@@ -76,6 +79,6 @@ public class HomePresenter extends MvpBasePresenter<IHomeView> {
         hoteis.add(hotel);
         hoteis.add(hotel);
 
-        return new ApiResponse<Hotel>("000", "suceso", hoteis);
+        return new ApiListResponse<Hotel>( "suceso", null, null, null, hoteis);
     }
 }

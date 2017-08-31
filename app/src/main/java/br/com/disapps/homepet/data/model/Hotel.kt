@@ -8,27 +8,29 @@ import com.google.gson.annotations.SerializedName
 
 class Hotel {
 
-    var codigo: Int = 0
-    var nome: String? = null
+    var code: Int = 0
+    var name: String? = null
     var email: String? = null
-    var senha: String? = null
-    var endereco: String? = null
+    var address: String? = null
+    var price: Float? = null
 
-    @SerializedName("email_contato")
-    var emailContato: String? = null
+    @SerializedName("contact_email") var contactEmail: String? = null
+    @SerializedName("contact_phone") var contactPhone: String? = null
 
-    @SerializedName("telefone_contato")
-    var telefoneContato: String? = null
-
-    var coordenadas: Coordenadas? = null
+    var coordenates: Coordenate? = null
     var cep: String? = null
-    var cidade: String? = null
+    var city: String? = null
     var uf: String? = null
     var status: String? = null
-    var descricao: String? = null
+    var description: String? = null
 
-    @SerializedName("url_imagem_capa")
-    var urlImagemCapa: String? = null
+    @SerializedName("cover_image") var coverImage: String? = null
 
-    var imagens: List<String>? = null
+    var rating:Float = 0F
+
+    @SerializedName("ratings_number") var ratingsNumber: Int = 0
+    @SerializedName("comments_number") var commentsNumber: Int = 0
+
+    var images: List<String>? = null
+    var services: List<Service>? = null
 }

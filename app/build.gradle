@@ -24,11 +24,13 @@ android {
     buildTypes {
         debug {
             buildConfigField 'boolean', 'HTTP_LOG_ENABLED', "true"
-            buildConfigField 'String', 'HOST', '"http://192.168.1.8/homepet"'
+            buildConfigField 'String', 'HOST', '"http://192.168.1.9/homepet"'
+            buildConfigField 'String', 'clientSecret', '"Basic QVNmOGVlMFNhOGFuZjpsYWtzZGZhc2Fjbzg5Mg=="'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
             buildConfigField 'boolean', 'HTTP_LOG_ENABLED', "false"
-            buildConfigField 'String', 'HOST', '"http://192.168.1.8/homepet"'
+            buildConfigField 'String', 'HOST', '"http://192.168.1.5/homepet"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

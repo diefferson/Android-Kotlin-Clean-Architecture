@@ -10,6 +10,7 @@ import javax.net.ssl.HttpsURLConnection
 import br.com.disapps.homepet.BuildConfig
 import br.com.disapps.homepet.app.HomePet
 import br.com.disapps.homepet.data.model.Auth
+import br.com.disapps.homepet.data.ws.request.RefreshTokenLoginRequest
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -30,6 +31,11 @@ class RestClient {
     private var httpClient: OkHttpClient? = null
 
     private val retrofitClient: Retrofit
+
+    companion object {
+        val AUTHORIZATION_HEADER_PREFIX = "Bearer "
+        val AUTHORIZATION_REFRESH_HEADER_PREFIX = "renew "
+    }
 
     init {
 
@@ -69,7 +75,7 @@ class RestClient {
             //Build new request
             val builder = request.newBuilder()
 
-            val token = HomePet.instance?.preferences?.auth?.key //save token of this request for future
+            val token = HomePet.instance?.preferences?.auth?.accessToken //save token of this request for future
 
             request = builder.build() //overwrite old request
             val response = chain.proceed(request) //perform request, here original request will be executed
@@ -79,25 +85,25 @@ class RestClient {
                     //perform all 401 in sync blocks, to avoid multiply token updates
 
 
-//                    val currentToken = HomePet.instance?.preferences?.auth?.key //get currently stored token
-//
-//                    if (currentToken != null && currentToken == token) { //compare current token with token that was stored before, if it was not updated - do update
-//
-//                        val code = refreshToken() / 100 //refresh token
-//                        if (code != 2) { //if refresh token failed for some reason
-//                            if (code == 4)
-//                            //only if response is 400, 500 might mean that token was not updated
-//                                logout() //go to login screen
-//                            return response //if token refresh failed - show error to user
-//                        }
-//
-//                    }
-//
-//                    if (HomePet.instance?.preferences?.authTokenWithPrefix != null) { //retry requires new auth token,
-//                        setAuthHeader(builder, HomePet.instance?.preferences?.auth?.key) //set auth token to updated
-//                        request = builder.build()
-//                        return chain.proceed(request) //repeat request with new token
-//                    }
+                    val currentToken = HomePet.instance?.preferences?.auth?.accessToken //get currently stored token
+
+                    if (currentToken != null && currentToken == token) { //compare current token with token that was stored before, if it was not updated - do update
+
+                        val code = refreshToken() / 100 //refresh token
+                        if (code != 2) { //if refresh token failed for some reason
+                            if (code == 4)
+                            //only if response is 400, 500 might mean that token was not updated
+                                logout() //go to login screen
+                            return response //if token refresh failed - show error to user
+                        }
+
+                    }
+
+                    if (HomePet.instance?.preferences?.authTokenWithPrefix != null) { //retry requires new auth token,
+                        setAuthHeader(builder, HomePet.instance?.preferences?.auth?.accessToken) //set auth token to updated
+                        request = builder.build()
+                        return chain.proceed(request) //repeat request with new token
+                    }
                 }
             }
 
@@ -107,47 +113,45 @@ class RestClient {
 
         private fun setAuthHeader(builder: Request.Builder, token: String?) {
             if (token != null)
-            //Add Auth token to each request if authorized
                 builder.header("Authorization", token)
         }
 
-//        @Synchronized private fun refreshToken(): Int {
-//            //Refresh token, synchronously, save it, and return result code
-//            //you might use retrofit here
-//
-//            try {
-//                val call = api.refreshToken(HomePet.instance?.preferences?.auth?.key!!)
-//                val refresh = call.execute()
-//
-//                if (refresh.isSuccessful) {
-//                    HomePet.instance?.preferences?.saveAuth(refresh.body()!!)
-//                } else {
-//                    Log.e(RestClient::class.java.simpleName, "refresh token call failed!")
-//                    logout()
-//                }
-//
-//                return refresh.code()
-//
-//            } catch (e: IOException) {
-//                e.printStackTrace()
-//            } catch (e: StackOverflowError) {
-//                e.printStackTrace()
-//            }
-//
-//            return HttpsURLConnection.HTTP_BAD_REQUEST
-//        }
+        @Synchronized private fun refreshToken(): Int {
+
+            try {
+
+                var request =  RefreshTokenLoginRequest();
+                request.grantType = "refresh_token"
+                request.refreshToken = HomePet.instance?.preferences?.auth?.refreshToken
+
+                val call = api.refreshToken(BuildConfig.clientSecret, request )
+                val refresh = call.execute()
+
+                if (refresh.isSuccessful) {
+                    HomePet.instance?.preferences?.saveAuth(refresh.body()?.content!!)
+                } else {
+                    Log.e(RestClient::class.java.simpleName, "refresh token call failed!")
+                    logout()
+                }
+
+                return refresh.code()
+
+            } catch (e: IOException) {
+                e.printStackTrace()
+            } catch (e: StackOverflowError) {
+                e.printStackTrace()
+            }
+
+            return HttpsURLConnection.HTTP_BAD_REQUEST
+        }
 
         private fun logout(): Int {
-            //logout your user
             HomePet.instance?.preferences?.clearUserPrefs()
             return 0
         }
 
     }
 
-    companion object {
-        val AUTHORIZATION_HEADER_PREFIX = "key "
-        val AUTHORIZATION_REFRESH_HEADER_PREFIX = "renew "
-    }
+
 
 }

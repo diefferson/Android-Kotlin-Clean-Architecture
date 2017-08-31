@@ -5,6 +5,7 @@ import android.app.Application
 import com.facebook.drawee.backends.pipeline.Fresco
 
 import br.com.disapps.homepet.data.cache.HomePetRepository
+import br.com.disapps.homepet.data.cache.HotelRepository
 import br.com.disapps.homepet.data.prefs.Preferences
 import br.com.disapps.homepet.data.ws.RestApi
 import br.com.disapps.homepet.data.ws.RestClient
@@ -21,6 +22,7 @@ class HomePet : Application() {
         private set
 
     var homePetRepository: HomePetRepository? = null
+    var hoteltRepository: HotelRepository? = null
 
     init {
 
@@ -38,6 +40,7 @@ class HomePet : Application() {
         preferences = Preferences(instance!!)
 
         homePetRepository = HomePetRepository(this, preferences as Preferences, cacheDir, restApi as RestApi);
+        hoteltRepository = HotelRepository(this, preferences as Preferences, cacheDir, restApi as RestApi);
     }
 
     companion object {

@@ -1,4 +1,4 @@
-package br.com.disapps.homepet.ui.home.adapter;
+package br.com.disapps.homepet.ui.hotels.adapter;
 
 import android.support.annotation.Nullable;
 
@@ -22,7 +22,9 @@ public class HotelAdapter extends BaseQuickAdapter<Hotel, CustomViewHolder> {
 
     @Override
     protected void convert(CustomViewHolder helper, Hotel item) {
-        helper.setImageURI(R.id.hotel_image, item.getUrlImagemCapa());
-        helper.setText(R.id.hotel_name, item.getNome());
+        helper.setImageURI(R.id.hotel_image, item.getCoverImage());
+        helper.setText(R.id.hotel_name, item.getName());
+//        helper.setText(R.id.num_avaliacoes, item.getRatingsNumber());
+        helper.setRating(R.id.rating, item.getRating());
     }
 }

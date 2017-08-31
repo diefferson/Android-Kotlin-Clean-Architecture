@@ -5,4 +5,7 @@ import com.google.gson.annotations.SerializedName
 /**
  * Created by diefferson.santos on 24/08/17.
  */
-class Servico(@SerializedName("codigo_servico") var codigoServico:Int, var nome:String)
+class Service(
+                @SerializedName("code_service") var codeService:Int,
+                var name:String
+            )

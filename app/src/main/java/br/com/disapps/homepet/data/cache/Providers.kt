@@ -1,7 +1,7 @@
 package br.com.disapps.homepet.data.cache
 
 import br.com.disapps.homepet.data.model.Hotel
-import br.com.disapps.homepet.data.ws.response.ApiResponse
+import br.com.disapps.homepet.data.ws.response.ApiListResponse
 import io.reactivex.Observable
 import io.rx_cache2.Actionable
 import io.rx_cache2.DynamicKey
@@ -14,5 +14,5 @@ import io.rx_cache2.EvictProvider
 interface Providers{
 
     @Actionable
-    abstract fun getHoteis(apiRequest: Observable<ApiResponse<Hotel>>, key: DynamicKey, evictProvider: EvictProvider): Observable<ApiResponse<Hotel>>
+    abstract fun getHoteis(apiRequest: Observable<ApiListResponse<Hotel>>, key: DynamicKey, evictProvider: EvictProvider): Observable<ApiListResponse<Hotel>>
 }

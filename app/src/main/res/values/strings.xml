@@ -4,4 +4,6 @@
     <string name="title_maps">Mapa</string>
     <string name="title_profile">Perfil</string>
     <string name="title_activity_maps">Map</string>
+    <string name="search">Pesquisar</string>
+    <string name="filter">Filtro</string>
 </resources>
