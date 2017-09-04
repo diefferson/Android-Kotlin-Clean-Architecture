@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -15,13 +16,14 @@ import android.widget.FrameLayout;
 import java.util.List;
 
 import br.com.disapps.homepet.receiver.NetworkChangeReceiver;
+import br.com.disapps.homepet.util.rx.RxHttpError;
 import butterknife.ButterKnife;
 
 /**
  * Created by diefferson.santos on 23/08/17.
  */
 
-public abstract class AppActivity extends AppCompatActivity implements IAppActivityListener {
+public abstract class AppActivity extends AppCompatActivity implements IAppActivityListener, IErrorHandlerView, AppView {
 
     FrameLayout container;
 
@@ -90,6 +92,27 @@ public abstract class AppActivity extends AppCompatActivity implements IAppActiv
         super.onPause();
     }
 
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void dismissLoading() {
+
+    }
+
+    @Override
+    public void error(RxHttpError error) {
+
+    }
+
+    @Override
+    public void error(Throwable e) {
+
+    }
+
     public void setupBroadcastReceiver(boolean on) {
         if (networkReceiver == null)
             networkReceiver = new NetworkChangeReceiver();
@@ -116,4 +139,6 @@ public abstract class AppActivity extends AppCompatActivity implements IAppActiv
             }
         }
     };
+
+
 }

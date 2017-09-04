@@ -22,9 +22,11 @@ public class HotelAdapter extends BaseQuickAdapter<Hotel, CustomViewHolder> {
 
     @Override
     protected void convert(CustomViewHolder helper, Hotel item) {
-        helper.setImageURI(R.id.hotel_image, item.getCoverImage());
         helper.setText(R.id.hotel_name, item.getName());
-//        helper.setText(R.id.num_avaliacoes, item.getRatingsNumber());
+        helper.setImageURI(R.id.hotel_image, item.getCoverImage());
         helper.setRating(R.id.rating, item.getRating());
+        helper.setText(R.id.ratings, String.valueOf(item.getRatingsNumber()));
+        helper.setText(R.id.comments, String.valueOf(item.getCommentsNumber()));
+        helper.setText(R.id.price, String.valueOf(item.getPrice()));
     }
 }

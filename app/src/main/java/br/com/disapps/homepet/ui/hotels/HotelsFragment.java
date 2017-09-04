@@ -1,24 +1,25 @@
 package br.com.disapps.homepet.ui.hotels;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import br.com.disapps.homepet.R;
 import br.com.disapps.homepet.app.HomePet;
 import br.com.disapps.homepet.data.model.Hotel;
 import br.com.disapps.homepet.ui.common.AppFragment;
 import br.com.disapps.homepet.ui.filter.FilterFragment;
+import br.com.disapps.homepet.ui.hotel.HotelActivity;
 import br.com.disapps.homepet.ui.hotels.adapter.HotelAdapter;
 import butterknife.BindView;
 
@@ -57,7 +58,7 @@ public class HotelsFragment extends AppFragment<IHotelsView , HotelsPresenter> i
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
 
-        getAppActivityListener().setTitle("Pesquisar");
+        //getAppActivityListener().setTitle("Pesquisar");
 
         hotelRecycler.setHasFixedSize(true);
         hotelRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -73,7 +74,7 @@ public class HotelsFragment extends AppFragment<IHotelsView , HotelsPresenter> i
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.filter_hotel){
-            getAppActivityListener().replaceAndBackStackFragment(FilterFragment.newInstance());
+//            getAppActivityListener().replaceAndBackStackFragment(FilterFragment.newInstance());
             return true;
         }
 
@@ -82,7 +83,18 @@ public class HotelsFragment extends AppFragment<IHotelsView , HotelsPresenter> i
 
     @Override
     public void fillHotelAdapter(List<Hotel> hoteis) {
+
         hotelAdapter = new HotelAdapter(hoteis);
+
+        hotelAdapter.setOnItemClickListener((BaseQuickAdapter adapter, View view, int position)-> {
+            Intent intent = new Intent(getActivity(), HotelActivity.class);
+            Bundle args = new Bundle();
+            args.putInt("hotelCode", hotelAdapter.getItem(position).getCode());
+            intent.putExtras(args);
+            startActivity(intent);
+
+        });
+
         hotelRecycler.setAdapter(hotelAdapter);
     }
 }

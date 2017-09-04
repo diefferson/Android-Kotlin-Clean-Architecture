@@ -1,19 +1,17 @@
 package br.com.disapps.homepet.data.ws
 
 import br.com.disapps.homepet.data.model.Auth
-import br.com.disapps.homepet.data.model.Hotel
 import br.com.disapps.homepet.data.model.User
 import br.com.disapps.homepet.data.ws.request.PasswordLoginRequest
 import br.com.disapps.homepet.data.ws.request.RefreshTokenLoginRequest
 import br.com.disapps.homepet.data.ws.request.SignupRequest
-import br.com.disapps.homepet.data.ws.response.ApiListResponse
 import br.com.disapps.homepet.data.ws.response.ApiSimpleResponse
+import br.com.disapps.homepet.data.ws.response.ListCommentResponse
+import br.com.disapps.homepet.data.ws.response.HotelResponse
+import br.com.disapps.homepet.data.ws.response.ListHotelResponse
 import io.reactivex.Observable
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 /**
  * Created by diefferson.santos on 23/08/17.
@@ -34,6 +32,12 @@ interface RestApi {
     abstract fun getUser(@Header("Authorization") accessToken: String) : Observable<ApiSimpleResponse<User>>
 
     @GET("hotel")
-    abstract fun getHoteis(): Observable<ApiListResponse<Hotel>>
+    abstract fun getHoteis(): Observable<ListHotelResponse>
+
+    @GET("hotel/{codeHotel}")
+    abstract fun getHotel(@Path("codeHotel") codeHotel: Int): Observable<HotelResponse>
+
+    @GET("comment/{codeHotel}")
+    abstract fun getComments(@Path("codeHotel") codeHotel: Int): Observable<ListCommentResponse>
 
 }

@@ -1,22 +1,31 @@
-package br.com.disapps.homepet.ui;
+package br.com.disapps.homepet.ui.main;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.google.android.gms.maps.MapView;
+import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
+import com.hannesdorfmann.mosby3.mvp.MvpView;
+
 import br.com.disapps.homepet.R;
 import br.com.disapps.homepet.app.HomePet;
 import br.com.disapps.homepet.ui.common.AppActivity;
+import br.com.disapps.homepet.ui.common.AppFragment;
 import br.com.disapps.homepet.ui.hotels.HotelsFragment;
 import br.com.disapps.homepet.ui.login.LoginFragment;
 import br.com.disapps.homepet.ui.map.MapFragment;
 import br.com.disapps.homepet.ui.profile.ProfileFragment;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
-public class MainActivity extends AppActivity {
+public class MainActivity extends AppActivity{
 
     @BindView(R.id.navigation)
     BottomNavigationView navigation;
@@ -28,7 +37,6 @@ public class MainActivity extends AppActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         bindView();
 
         setContainer(container);

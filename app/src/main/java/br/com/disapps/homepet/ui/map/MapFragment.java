@@ -67,18 +67,15 @@ public class MapFragment  extends AppFragment<IMapView , MapPresenter> implement
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap map) {
+
                 mMap = map;
+                mMap.getUiSettings().setScrollGesturesEnabled(false);
 
-                // For showing a move to my location button
-               // mMap.setMyLocationEnabled(true);
+                LatLng sydney = new LatLng(-25.550263, -49.263760);
+                mMap.addMarker(new MarkerOptions().position(sydney).title("Minha casa").snippet("Ola sou eu"));
 
-                // For dropping a marker at a point on the Map
-                LatLng sydney = new LatLng(-34, 151);
-                mMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15));
 
-                // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
-                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });
 
