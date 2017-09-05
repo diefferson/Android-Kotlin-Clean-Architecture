@@ -1,29 +1,23 @@
 package br.com.disapps.homepet.data.ws
 
 import android.util.Log
-
-import java.io.IOException
-import java.net.HttpURLConnection
-
-import javax.net.ssl.HttpsURLConnection
-
 import br.com.disapps.homepet.BuildConfig
 import br.com.disapps.homepet.app.HomePet
-import br.com.disapps.homepet.data.model.Auth
 import br.com.disapps.homepet.data.ws.request.RefreshTokenLoginRequest
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
+import java.net.HttpURLConnection
+import javax.net.ssl.HttpsURLConnection
 
 /**
- * Created by diefferson.santos on 23/08/17.
- */
+* Created by diefferson.santos on 23/08/17.
+*/
 class RestClient {
 
     val api: RestApi
@@ -34,7 +28,6 @@ class RestClient {
 
     companion object {
         val AUTHORIZATION_HEADER_PREFIX = "Bearer "
-        val AUTHORIZATION_REFRESH_HEADER_PREFIX = "renew "
     }
 
     init {
@@ -44,7 +37,6 @@ class RestClient {
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
             httpClient = OkHttpClient.Builder()
-                    //Http authorize interceptor
                     .addInterceptor(HttpInterceptor())
                     .addInterceptor(loggingInterceptor)
                     .build()
@@ -120,7 +112,7 @@ class RestClient {
 
             try {
 
-                var request =  RefreshTokenLoginRequest();
+                val request =  RefreshTokenLoginRequest()
                 request.grantType = "refresh_token"
                 request.refreshToken = HomePet.instance?.preferences?.auth?.refreshToken
 
@@ -151,7 +143,4 @@ class RestClient {
         }
 
     }
-
-
-
 }

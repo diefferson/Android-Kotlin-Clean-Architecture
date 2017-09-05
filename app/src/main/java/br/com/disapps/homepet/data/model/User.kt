@@ -13,7 +13,7 @@ class User {
     var address: String? = null
     var phone: String? = null
     var avatar: String? = null
-    var sex: Char? = null
+    var sex: String? = null
     var birthday: Date? = null
     var cep: Int? = null
     var city: String? = null

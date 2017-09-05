@@ -14,9 +14,9 @@ import io.rx_cache2.EvictProvider
 
 interface Providers{
 
-    abstract fun getHoteis(apiRequest: Observable<ListHotelResponse>, key: DynamicKey, evictProvider: EvictProvider): Observable<ListHotelResponse>
-    abstract fun getHotel(apiRequest: Observable<HotelResponse>, key: DynamicKey, evictProvider: EvictProvider): Observable<HotelResponse>
-    abstract fun getComments(apiRequest: Observable<ListCommentResponse>, key: DynamicKey, evictProvider: EvictProvider): Observable<ListCommentResponse>
-    abstract fun getCoordinates(apiRequest: Observable<CoordinateResponse>, key: DynamicKey, evictProvider: EvictProvider): Observable<CoordinateResponse>
+     fun getHoteis(apiRequest: Observable<ListHotelResponse>, key: DynamicKey, evictProvider: EvictProvider): Observable<ListHotelResponse>
+     fun getHotel(apiRequest: Observable<HotelResponse>, key: DynamicKey, evictProvider: EvictProvider): Observable<HotelResponse>
+     fun getComments(apiRequest: Observable<ListCommentResponse>, key: DynamicKey, evictProvider: EvictProvider): Observable<ListCommentResponse>
+     fun getCoordinates(apiRequest: Observable<CoordinateResponse>, key: DynamicKey, evictProvider: EvictProvider): Observable<CoordinateResponse>
 
 }

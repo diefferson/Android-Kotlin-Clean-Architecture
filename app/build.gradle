@@ -30,6 +30,7 @@ android {
         release {
             buildConfigField 'boolean', 'HTTP_LOG_ENABLED', "false"
             buildConfigField 'String', 'HOST', '"http://meucartaotransporte.com.br/homepet"'
+            buildConfigField 'String', 'clientSecret', '"Basic QVNmOGVlMFNhOGFuZjpsYWtzZGZhc2Fjbzg5Mg=="'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

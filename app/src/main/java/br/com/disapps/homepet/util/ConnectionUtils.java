@@ -7,14 +7,13 @@ import android.net.NetworkInfo;
 /**
  * Created by diefferson.santos on 23/08/17.
  */
-
 public class ConnectionUtils {
 
-    public static int TYPE_WIFI = 1;
-    public static int TYPE_MOBILE = 2;
-    public static int TYPE_NOT_CONNECTED = 0;
+     static int TYPE_WIFI = 1;
+     static int TYPE_MOBILE = 2;
+     static int TYPE_NOT_CONNECTED = 0;
 
-    public static int getConnectivityStatus(Context context) {
+     static int getConnectivityStatus(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -32,11 +31,5 @@ public class ConnectionUtils {
     public static boolean isOnline(Context context) {
         int status = getConnectivityStatus(context);
         return (status == TYPE_WIFI || status == TYPE_MOBILE);
-
-//        ConnectivityManager cm =
-//                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-//        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-//        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
-
 }

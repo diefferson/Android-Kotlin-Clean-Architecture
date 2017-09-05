@@ -32,7 +32,7 @@ public class HotelsPresenter extends MvpBasePresenter<IHotelsView> {
             getView().showLoading(false);
         }
 
-        disposables.add(mHotelRepository.getHoteis(true)
+        disposables.add(mHotelRepository.getHotels(true)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<ListHotelResponse>() {

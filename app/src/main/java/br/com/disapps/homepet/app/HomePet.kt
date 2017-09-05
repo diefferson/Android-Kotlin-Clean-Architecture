@@ -22,7 +22,22 @@ class HomePet : Application() {
         private set
 
     var homePetRepository: HomePetRepository? = null
-    var hoteltRepository: HotelRepository? = null
+        private set
+        get(){
+            if(homePetRepository == null) {
+                homePetRepository = HomePetRepository(this, preferences as Preferences, cacheDir, restApi as RestApi)
+            }
+            return homePetRepository;
+        }
+
+    var hotelRepository: HotelRepository? = null
+        private set
+        get(){
+            if(hotelRepository == null) {
+                hotelRepository = HotelRepository(this, preferences as Preferences, cacheDir, restApi as RestApi)
+            }
+            return hotelRepository;
+        }
 
     init {
 
@@ -39,12 +54,9 @@ class HomePet : Application() {
 
         preferences = Preferences(instance!!)
 
-        homePetRepository = HomePetRepository(this, preferences as Preferences, cacheDir, restApi as RestApi);
-        hoteltRepository = HotelRepository(this, preferences as Preferences, cacheDir, restApi as RestApi);
     }
 
     companion object {
-
         var instance: HomePet? = null
             private set
     }

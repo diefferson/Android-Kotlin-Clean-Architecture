@@ -12,11 +12,9 @@ import io.victoralbertos.jolyglot.GsonSpeaker
  */
 
 abstract class BaseRepository(protected val preferences: Preferences, cacheDir: File, protected val restApi: RestApi) {
-    protected val providers: Providers
 
-    init {
-        this.providers = RxCache.Builder()
-                .persistence(cacheDir, GsonSpeaker())
-                .using(Providers::class.java)
-    }
+    protected val providers: Providers = RxCache.Builder()
+            .persistence(cacheDir, GsonSpeaker())
+            .using(Providers::class.java)
+
 }

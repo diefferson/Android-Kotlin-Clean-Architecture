@@ -18,14 +18,14 @@ import java.io.File
 class HotelRepository (private val context: Context, preferences: Preferences, cacheDir: File, restApi: RestApi)
     : BaseRepository(preferences, cacheDir, restApi) {
 
-    val KEY_HOTELS : String = "listHotels";
-    val KEY_HOTEL : String = "hotel";
-    val KEY_COMMENTS : String = "comments";
-    val KEY_COORDINATES : String = "coordinates";
+    private val KEY_HOTELS : String = "listHotels"
+    private val KEY_HOTEL : String = "hotel"
+    private val KEY_COMMENTS : String = "comments"
+    private val KEY_COORDINATES : String = "coordinates"
 
-    fun getHoteis(hasInternetConnection: Boolean): Observable<ListHotelResponse> {
+    fun getHotels(hasInternetConnection: Boolean): Observable<ListHotelResponse> {
         return providers.getHoteis(
-                restApi.getHoteis(),
+                restApi.getHotels(),
                 DynamicKey(KEY_HOTELS),
                 EvictProvider(hasInternetConnection))
     }
