@@ -32,6 +32,10 @@ public class LoginPresenter extends MvpBasePresenter<ILoginView> {
 
     public void login(String username, String password){
 
+        if(isViewAttached()){
+            getView().showLoading(false);
+        }
+
         PasswordLoginRequest request = new PasswordLoginRequest();
         request.setUsername(username);
         request.setPassword(password);

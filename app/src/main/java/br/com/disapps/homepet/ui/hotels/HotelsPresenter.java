@@ -27,7 +27,12 @@ public class HotelsPresenter extends MvpBasePresenter<IHotelsView> {
     }
 
     public void loadHoteis(){
-        disposables.add(mHotelRepository.getHoteis(getView().hasInternetConnection())
+
+        if(isViewAttached()){
+            getView().showLoading(false);
+        }
+
+        disposables.add(mHotelRepository.getHoteis(true)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<ListHotelResponse>() {
@@ -38,6 +43,7 @@ public class HotelsPresenter extends MvpBasePresenter<IHotelsView> {
 
                         if(isViewAttached()){
                             getView().fillHotelAdapter(hoteis);
+                            getView().dismissLoading();
                         }
                     }
 
@@ -45,6 +51,7 @@ public class HotelsPresenter extends MvpBasePresenter<IHotelsView> {
                     public void onError(Throwable e) {
                         if(isViewAttached()){
                             IErrorHandlerHelper.defaultErrorResolver(HotelsPresenter.this.getView(), e);
+                            getView().dismissLoading();
                         }
                     }
 

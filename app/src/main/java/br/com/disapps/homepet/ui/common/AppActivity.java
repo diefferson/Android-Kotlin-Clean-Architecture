@@ -11,11 +11,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import java.util.List;
 
 import br.com.disapps.homepet.receiver.NetworkChangeReceiver;
+import br.com.disapps.homepet.ui.custom.LoadingView;
 import br.com.disapps.homepet.util.rx.RxHttpError;
 import butterknife.ButterKnife;
 
@@ -26,6 +28,7 @@ import butterknife.ButterKnife;
 public abstract class AppActivity extends AppCompatActivity implements IAppActivityListener, IErrorHandlerView, AppView {
 
     FrameLayout container;
+    private LoadingView loadingView;
 
     private NetworkChangeReceiver networkReceiver;
     private List<InternetConnectionListener> internetListenerList;
@@ -39,6 +42,24 @@ public abstract class AppActivity extends AppCompatActivity implements IAppActiv
         super.onCreate(savedInstanceState);
         setupBroadcastReceiver(true);
     }
+
+    public void setupLoadingActivity(LoadingView loadingView) {
+        this.loadingView = loadingView;
+    }
+
+    public void showLoading(boolean cancelable) {
+        if (loadingView != null) {
+            loadingView.cancelableOnBackPressed(cancelable);
+            loadingView.show(getSupportFragmentManager(), loadingView.getViewTag());
+        }
+    }
+
+    public void dismissLoading() {
+        if (loadingView != null) {
+            loadingView.dismiss();
+        }
+    }
+
 
     @Override
     public void setContainer(FrameLayout container){
@@ -92,16 +113,6 @@ public abstract class AppActivity extends AppCompatActivity implements IAppActiv
         super.onPause();
     }
 
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void dismissLoading() {
-
-    }
 
     @Override
     public void error(RxHttpError error) {

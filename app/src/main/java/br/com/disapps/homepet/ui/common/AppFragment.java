@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
 
 import java.net.HttpURLConnection;
 
+import br.com.disapps.homepet.ui.custom.LoadingView;
 import br.com.disapps.homepet.util.rx.RxHttpError;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -26,20 +29,27 @@ public abstract class AppFragment<V extends AppView, P extends MvpPresenter<V>> 
 
     private IAppActivityListener iAppActivityListener;
     private Unbinder unbinder;
+    private View loadingView;
 
     @Override
     public boolean hasInternetConnection() {
         return getAppActivityListener().hasInternetConnection();
     }
-    public void showLoading() {
-//        if (loadingFragment == null) {
-//            loadingFragment = LoadingFragment.newInstance();
-//        }
-//        loadingFragment.show(getFragmentManager(), LoadingFragment.class.getSimpleName());
+
+    public void setupLoadingFragment(View loadingView) {
+        this.loadingView = loadingView;
+    }
+
+    public void showLoading(boolean cancelable) {
+        if (loadingView != null) {
+            loadingView.setVisibility(View.VISIBLE);
+        }
     }
 
     public void dismissLoading() {
-//        loadingFragment.dismiss();
+        if (loadingView != null) {
+            loadingView.setVisibility(View.GONE);
+        }
     }
 
     @Override

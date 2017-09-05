@@ -18,21 +18,23 @@ public class HotelViewPagerAdapter  extends FragmentPagerAdapter {
 
     private static final int FRAGMENT_COUNT = 3;
     private final Context mContext;
+    private final int codeHotel;
 
-    public HotelViewPagerAdapter(FragmentManager fm, Context c) {
+    public HotelViewPagerAdapter(FragmentManager fm, Context c, int codeHotel) {
         super(fm);
         mContext = c;
+        this.codeHotel = codeHotel;
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return HotelDetailsFragment.newInstance();
+                return HotelDetailsFragment.newInstance(codeHotel);
             case 1:
-                return CommentsFragment.newInstance();
+                return CommentsFragment.newInstance(codeHotel);
             case 2:
-                return MapFragment.newInstance();
+                return MapFragment.newInstance(codeHotel);
         }
 
        // return LectureDetailsFragment.newInstance();

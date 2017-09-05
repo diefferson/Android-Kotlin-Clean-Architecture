@@ -30,7 +30,11 @@ public class CommentsPresenter extends MvpBasePresenter<ICommentsView> {
 
     public void loadComments(int codeHotel){
 
-        disposables.add(mHotelRepository.getComments(false, codeHotel)
+        if(isViewAttached()){
+            getView().showLoading(false);
+        }
+
+        disposables.add(mHotelRepository.getComments(true, codeHotel)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<ListCommentResponse>() {
@@ -41,6 +45,7 @@ public class CommentsPresenter extends MvpBasePresenter<ICommentsView> {
 
                         if(isViewAttached()){
                             getView().fillComments(comments);
+                            getView().dismissLoading();
                         }
                     }
 
@@ -48,6 +53,7 @@ public class CommentsPresenter extends MvpBasePresenter<ICommentsView> {
                     public void onError(Throwable e) {
                         if(isViewAttached()){
                              IErrorHandlerHelper.defaultErrorResolver(CommentsPresenter.this.getView(), e);
+                             getView().dismissLoading();
                         }
                     }
 

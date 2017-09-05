@@ -11,6 +11,7 @@ import android.widget.EditText;
 import br.com.disapps.homepet.R;
 import br.com.disapps.homepet.app.HomePet;
 import br.com.disapps.homepet.ui.common.AppFragment;
+import br.com.disapps.homepet.ui.custom.LoadingView;
 import br.com.disapps.homepet.ui.profile.ProfileFragment;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -26,6 +27,8 @@ public class LoginFragment extends AppFragment<ILoginView, LoginPresenter> imple
 
     @BindView(R.id.password)
     EditText password;
+
+    private LoadingView loadingView;
 
     public static LoginFragment newInstance(){
         return new LoginFragment();
@@ -50,7 +53,24 @@ public class LoginFragment extends AppFragment<ILoginView, LoginPresenter> imple
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        getAppActivityListener().setupLoadingActivity(new LoadingView());
+
         getAppActivityListener().setTitle("Entrar");
+    }
+
+    @Override
+    public void showLoading(boolean cancelable) {
+        if (loadingView != null) {
+            loadingView.cancelableOnBackPressed(cancelable);
+            loadingView.show(getFragmentManager(), loadingView.getViewTag());
+        }
+    }
+
+    @Override
+    public void dismissLoading() {
+        if (loadingView != null) {
+            loadingView.dismiss();
+        }
     }
 
     @OnClick(R.id.login_bt)

@@ -1,7 +1,10 @@
 package br.com.disapps.homepet.ui.common;
 
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.FrameLayout;
+
+import br.com.disapps.homepet.ui.custom.LoadingView;
 
 /**
  * Created by diefferson.santos on 23/08/17.
@@ -45,6 +48,10 @@ public interface IAppActivityListener {
 
 
     boolean hasInternetConnection();
+
+    void setupLoadingActivity(LoadingView loadingView);
+    void showLoading(boolean cancelable);
+    void dismissLoading();
 
 //    void setAsChildView();
 //    void setAsMainView();

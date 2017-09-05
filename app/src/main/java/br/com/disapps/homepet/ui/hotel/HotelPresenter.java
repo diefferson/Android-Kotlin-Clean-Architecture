@@ -26,33 +26,39 @@ public class HotelPresenter  extends MvpBasePresenter<IHotelView> {
 
     public void loadHotel(int codeHotel) {
 
-        disposables.add(mHotelRepository.getHotel(false, codeHotel)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<HotelResponse>() {
-                    @Override
-                    public void onNext(HotelResponse response) {
+        if(isViewAttached()){
+            getView().showLoading(false);
+        }
 
-                        Hotel hotel = response.getContent();
+        disposables.add(mHotelRepository.getHotel(true, codeHotel)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(new DisposableObserver<HotelResponse>() {
+                @Override
+                public void onNext(HotelResponse response) {
 
-                        if (isViewAttached()) {
-                            getView().fillHotel(hotel);
-                        }
+                    Hotel hotel = response.getContent();
+
+                    if (isViewAttached()) {
+                        getView().fillHeaderHotel(hotel);
+                        getView().dismissLoading();
                     }
+                }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        if (isViewAttached()) {
-                             IErrorHandlerHelper.defaultErrorResolver(HotelPresenter.this.getView(), e);
-                        }
+                @Override
+                public void onError(Throwable e) {
+                    if (isViewAttached()) {
+                         IErrorHandlerHelper.defaultErrorResolver(HotelPresenter.this.getView(), e);
+                         getView().dismissLoading();
                     }
+                }
 
-                    @Override
-                    public void onComplete() {
+                @Override
+                public void onComplete() {
 
-                    }
-                }));
-
+                }
+            })
+        );
     }
 
     @Override

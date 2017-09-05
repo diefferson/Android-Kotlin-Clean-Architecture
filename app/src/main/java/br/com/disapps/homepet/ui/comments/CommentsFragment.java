@@ -2,6 +2,7 @@ package br.com.disapps.homepet.ui.comments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -24,10 +25,20 @@ public class CommentsFragment extends AppFragment<ICommentsView, CommentsPresent
     @BindView(R.id.comments_recycler)
     RecyclerView commentsRecycler;
 
+    @BindView(R.id.loading_view)
+    ConstraintLayout loadingView;
+
     private CommentAdapter commentAdapter;
 
-    public static CommentsFragment newInstance(){
-        return new CommentsFragment();
+    public static CommentsFragment newInstance(int codeHotel){
+
+        CommentsFragment commentsFragment = new CommentsFragment();
+
+        Bundle args = new Bundle();
+        args.putInt("codeHotel", codeHotel);
+        commentsFragment.setArguments(args);
+
+        return commentsFragment;
     }
 
     @Override
@@ -49,7 +60,11 @@ public class CommentsFragment extends AppFragment<ICommentsView, CommentsPresent
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getPresenter().loadComments(1);
+        setupLoadingFragment(loadingView);
+
+        int codeHotel = getArguments().getInt("codeHotel");
+
+        getPresenter().loadComments(codeHotel);
     }
 
     @Override
@@ -57,6 +72,5 @@ public class CommentsFragment extends AppFragment<ICommentsView, CommentsPresent
         commentAdapter = new CommentAdapter(comments);
         commentsRecycler.setAdapter(commentAdapter);
     }
-
 
 }

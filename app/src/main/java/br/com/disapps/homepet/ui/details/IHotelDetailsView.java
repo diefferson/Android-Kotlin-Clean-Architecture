@@ -1,5 +1,6 @@
 package br.com.disapps.homepet.ui.details;
 
+import br.com.disapps.homepet.data.model.Hotel;
 import br.com.disapps.homepet.ui.common.AppView;
 
 /**
@@ -7,4 +8,6 @@ import br.com.disapps.homepet.ui.common.AppView;
  */
 
 public interface IHotelDetailsView extends AppView {
+
+    void fillHotelDetails(Hotel hotel);
 }

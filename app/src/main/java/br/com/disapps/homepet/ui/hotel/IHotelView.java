@@ -9,5 +9,5 @@ import br.com.disapps.homepet.ui.common.AppView;
 
 public interface IHotelView extends AppView{
 
-    void fillHotel(Hotel hotel);
+    void fillHeaderHotel(Hotel hotel);
 }

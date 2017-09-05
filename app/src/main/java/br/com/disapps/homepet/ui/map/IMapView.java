@@ -1,5 +1,6 @@
 package br.com.disapps.homepet.ui.map;
 
+import br.com.disapps.homepet.data.model.Coordinate;
 import br.com.disapps.homepet.ui.common.AppView;
 
 /**
@@ -7,4 +8,6 @@ import br.com.disapps.homepet.ui.common.AppView;
  */
 
 public interface IMapView  extends AppView {
+
+    void fillCoordinates(Coordinate coordinate);
 }

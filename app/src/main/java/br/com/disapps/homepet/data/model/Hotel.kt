@@ -18,7 +18,7 @@ class Hotel : Serializable{
     @SerializedName("contact_email") var contactEmail: String? = null
     @SerializedName("contact_phone") var contactPhone: String? = null
 
-    var coordenates: Coordenate? = null
+    var coordenates: Coordinate? = null
     var cep: String? = null
     var city: String? = null
     var uf: String? = null
@@ -34,4 +34,8 @@ class Hotel : Serializable{
 
     var images: List<String>? = null
     var services: List<Service>? = null
+
+    fun getCompleteAddress():String{
+        return address+" - "+city+ " "+uf;
+    }
 }

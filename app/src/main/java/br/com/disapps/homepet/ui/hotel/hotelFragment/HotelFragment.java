@@ -25,13 +25,14 @@ public class HotelFragment extends AppFragment<IHotelView, HotelPresenter> imple
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
 
-    public static HotelFragment newInstance(Hotel hotel){
+    private Hotel hotel;
+
+    public static HotelFragment newInstance(int codeHotel){
 
         HotelFragment hotelFragment = new HotelFragment();
 
         Bundle args = new Bundle();
-        args.putSerializable("hotel", hotel);
-
+        args.putInt("codeHotel", codeHotel);
         hotelFragment.setArguments(args);
 
         return hotelFragment;
@@ -56,9 +57,10 @@ public class HotelFragment extends AppFragment<IHotelView, HotelPresenter> imple
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Hotel hotel = (Hotel) getArguments().getSerializable("hotel");
+        int codeHotel = getArguments().getInt("codeHotel");
 
-        mViewPager.setAdapter(new HotelViewPagerAdapter(getChildFragmentManager(), getContext()));
+        mViewPager.setAdapter(new HotelViewPagerAdapter(getChildFragmentManager(), getContext(), codeHotel));
         tabs.setupWithViewPager(mViewPager);
     }
+
 }

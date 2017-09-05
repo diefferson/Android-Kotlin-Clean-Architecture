@@ -1,14 +1,12 @@
 package br.com.disapps.homepet.data.ws
 
 import br.com.disapps.homepet.data.model.Auth
+import br.com.disapps.homepet.data.model.Coordinate
 import br.com.disapps.homepet.data.model.User
 import br.com.disapps.homepet.data.ws.request.PasswordLoginRequest
 import br.com.disapps.homepet.data.ws.request.RefreshTokenLoginRequest
 import br.com.disapps.homepet.data.ws.request.SignupRequest
-import br.com.disapps.homepet.data.ws.response.ApiSimpleResponse
-import br.com.disapps.homepet.data.ws.response.ListCommentResponse
-import br.com.disapps.homepet.data.ws.response.HotelResponse
-import br.com.disapps.homepet.data.ws.response.ListHotelResponse
+import br.com.disapps.homepet.data.ws.response.*
 import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.*
@@ -40,4 +38,6 @@ interface RestApi {
     @GET("comment/{codeHotel}")
     abstract fun getComments(@Path("codeHotel") codeHotel: Int): Observable<ListCommentResponse>
 
+    @GET("coordinates/{codeHotel}")
+    abstract fun getCoordinates(@Path("codeHotel") codeHotel: Int) : Observable<CoordinateResponse>
 }

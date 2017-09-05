@@ -3,6 +3,7 @@ package br.com.disapps.homepet.ui.hotels;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -18,6 +19,7 @@ import br.com.disapps.homepet.R;
 import br.com.disapps.homepet.app.HomePet;
 import br.com.disapps.homepet.data.model.Hotel;
 import br.com.disapps.homepet.ui.common.AppFragment;
+import br.com.disapps.homepet.ui.custom.LoadingView;
 import br.com.disapps.homepet.ui.filter.FilterFragment;
 import br.com.disapps.homepet.ui.hotel.HotelActivity;
 import br.com.disapps.homepet.ui.hotels.adapter.HotelAdapter;
@@ -31,6 +33,9 @@ public class HotelsFragment extends AppFragment<IHotelsView , HotelsPresenter> i
 
     @BindView(R.id.hotel_recycler)
     RecyclerView hotelRecycler;
+
+    @BindView(R.id.loading_view)
+    ConstraintLayout loadingView;
 
     private HotelAdapter hotelAdapter;
 
@@ -58,7 +63,9 @@ public class HotelsFragment extends AppFragment<IHotelsView , HotelsPresenter> i
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
 
-        //getAppActivityListener().setTitle("Pesquisar");
+        getAppActivityListener().setTitle("Pesquisar");
+
+        setupLoadingFragment(loadingView);
 
         hotelRecycler.setHasFixedSize(true);
         hotelRecycler.setLayoutManager(new LinearLayoutManager(getContext()));

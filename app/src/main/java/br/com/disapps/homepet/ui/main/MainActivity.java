@@ -57,7 +57,7 @@ public class MainActivity extends AppActivity{
                         replaceFragment(HotelsFragment.newInstance());
                     return true;
                 case R.id.navigation_map:
-                        replaceFragment(MapFragment.newInstance());
+                        replaceFragment(MapFragment.newInstance(1));
                     return true;
                 case R.id.navigation_profile:
                         if(HomePet.Companion.getInstance().getPreferences().isLogged()){
@@ -73,5 +73,15 @@ public class MainActivity extends AppActivity{
 
     private void setInitialFragment(MenuItem menuItem) {
         mOnNavigationItemSelectedListener.onNavigationItemSelected(menuItem);
+    }
+
+    @Override
+    public void showLoading(boolean cancelable) {
+
+    }
+
+    @Override
+    public void dismissLoading() {
+
     }
 }

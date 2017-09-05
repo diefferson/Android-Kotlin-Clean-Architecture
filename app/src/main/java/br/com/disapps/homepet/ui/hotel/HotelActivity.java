@@ -2,10 +2,12 @@ package br.com.disapps.homepet.ui.hotel;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.rd.PageIndicatorView;
@@ -17,6 +19,7 @@ import br.com.disapps.homepet.R;
 import br.com.disapps.homepet.app.HomePet;
 import br.com.disapps.homepet.data.model.Hotel;
 import br.com.disapps.homepet.ui.common.AppActivity;
+import br.com.disapps.homepet.ui.custom.LoadingView;
 import br.com.disapps.homepet.ui.hotel.hotelFragment.HotelFragment;
 import br.com.disapps.homepet.ui.hotels.adapter.ImageViewPagerAdapter;
 import butterknife.BindView;
@@ -40,6 +43,9 @@ public class HotelActivity  extends AppActivity
     @BindView(R.id.pageIndicatorView)
     PageIndicatorView pageIndicatorView;
 
+    @BindView(R.id.loading_view)
+    ConstraintLayout loadingView;
+
     private HotelPresenter hotelPresenter;
 
     @Override
@@ -51,11 +57,13 @@ public class HotelActivity  extends AppActivity
         setToolbar(toolbar);
         setContainer(container);
 
+       // setupLoadingFragment(loadingView);
+
         int hotelCode = getIntent().getExtras().getInt("hotelCode");
 
         getPresenter().loadHotel(hotelCode);
 
-        Hotel hotel = new Hotel();
+        replaceFragment(HotelFragment.newInstance(hotelCode));
 
     }
 
@@ -73,14 +81,14 @@ public class HotelActivity  extends AppActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public void fillHotel(Hotel hotel) {
+    public void fillHeaderHotel(Hotel hotel) {
 
         setTitle(hotel.getName());
 
         bannerSlider.setAdapter(new ImageViewPagerAdapter(this,hotel.getImages() ));
         pageIndicatorView.setViewPager(bannerSlider);
+        pageIndicatorView.setVisibility(View.VISIBLE);
 
-        replaceFragment(HotelFragment.newInstance(hotel));
     }
 
     private HotelPresenter getPresenter(){

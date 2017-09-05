@@ -7,6 +7,6 @@ import com.hannesdorfmann.mosby3.mvp.MvpView;
  */
 public interface AppView extends MvpView, IErrorHandlerView{
     boolean hasInternetConnection();
-    void showLoading();
+    void showLoading(boolean cancelable);
     void dismissLoading();
 }
