@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RadioGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
@@ -18,12 +21,13 @@ import java.util.List;
 import br.com.disapps.homepet.R;
 import br.com.disapps.homepet.app.HomePet;
 import br.com.disapps.homepet.data.model.Hotel;
+import br.com.disapps.homepet.data.ws.request.HotelsRequest;
 import br.com.disapps.homepet.ui.common.AppFragment;
-import br.com.disapps.homepet.ui.custom.LoadingView;
-import br.com.disapps.homepet.ui.filter.FilterFragment;
+
 import br.com.disapps.homepet.ui.hotel.HotelActivity;
 import br.com.disapps.homepet.ui.hotels.adapter.HotelAdapter;
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by diefferson.santos on 23/08/17.
@@ -37,7 +41,21 @@ public class HotelsFragment extends AppFragment<IHotelsView , HotelsPresenter> i
     @BindView(R.id.loading_view)
     ConstraintLayout loadingView;
 
+    @BindView(R.id.bottom_sheet)
+    View bottomSheet;
+
+    @BindView(R.id.apply_sort)
+    Button applySort;
+
+    @BindView(R.id.sort)
+    RadioGroup sort;
+
+    @BindView(R.id.sense)
+    RadioGroup sense;
+
     private HotelAdapter hotelAdapter;
+
+    private BottomSheetBehavior mBottomSheetBehavior;
 
     public static HotelsFragment newInstance(){
         return  new HotelsFragment();
@@ -65,12 +83,15 @@ public class HotelsFragment extends AppFragment<IHotelsView , HotelsPresenter> i
 
         getAppActivityListener().setTitle("Pesquisar");
 
+        mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        mBottomSheetBehavior.setPeekHeight(0);
+
         setupLoadingFragment(loadingView);
 
         hotelRecycler.setHasFixedSize(true);
         hotelRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        getPresenter().loadHoteis();
+        getPresenter().loadHoteis(new HotelsRequest());
     }
 
     @Override
@@ -81,7 +102,13 @@ public class HotelsFragment extends AppFragment<IHotelsView , HotelsPresenter> i
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.filter_hotel){
-//            getAppActivityListener().replaceAndBackStackFragment(FilterFragment.newInstance());
+
+            if(mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED){
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            }else{
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+
             return true;
         }
 
@@ -103,5 +130,33 @@ public class HotelsFragment extends AppFragment<IHotelsView , HotelsPresenter> i
         });
 
         hotelRecycler.setAdapter(hotelAdapter);
+    }
+
+    @OnClick(R.id.apply_sort)
+    public void applySort(){
+        HotelsRequest request = new HotelsRequest();
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        switch (sort.getCheckedRadioButtonId()){
+            case R.id.price:
+                request.setSort("price");
+                break;
+            case R.id.comments:
+                request.setSort("comments");
+                break;
+            case R.id.rating:
+                request.setSort("rating");
+                break;
+        }
+
+        switch (sense.getCheckedRadioButtonId()){
+            case R.id.asc:
+                request.setSense("asc");
+                break;
+            case R.id.desc:
+                request.setSense("desc");
+                break;
+        }
+
+        getPresenter().loadHoteis(request);
     }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import br.com.disapps.homepet.data.cache.HotelRepository;
 import br.com.disapps.homepet.data.model.Hotel;
+import br.com.disapps.homepet.data.ws.request.HotelsRequest;
 import br.com.disapps.homepet.data.ws.response.ListHotelResponse;
 import br.com.disapps.homepet.util.rx.IErrorHandlerHelper;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -26,13 +27,13 @@ public class HotelsPresenter extends MvpBasePresenter<IHotelsView> {
         mHotelRepository = hotelRepository;
     }
 
-    public void loadHoteis(){
+    public void loadHoteis(HotelsRequest request){
 
         if(isViewAttached()){
             getView().showLoading(false);
         }
 
-        disposables.add(mHotelRepository.getHotels(true)
+        disposables.add(mHotelRepository.getHotels(true, request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<ListHotelResponse>() {

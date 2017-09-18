@@ -72,7 +72,9 @@ dependencies {
 
     // Fresco
     implementation 'com.facebook.fresco:fresco:1.4.0'
-    compile 'com.romandanylyk:pageindicatorview:0.2.0'
+    implementation 'com.romandanylyk:pageindicatorview:0.2.0'
+
+    implementation 'com.allattentionhere:fabulousfilter:0.0.4'
 
     // Retrofit & OkHttp
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"

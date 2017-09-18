@@ -45,20 +45,25 @@ public class HotelAdapter extends BaseQuickAdapter<Hotel, CustomViewHolder> {
         helper.setText(R.id.distance, distance(item));
     }
 
+    //TODO: REFECTOR
     private String distance(Hotel hotel) {
 
-        locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+//        locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+//
+//        Criteria criteria = new Criteria();
+//        provider = locationManager.getBestProvider(criteria, false);
+//
+//
+//        Location location = locationManager.getLastKnownLocation(provider);
+//
+//        LatLng initialPosition = new LatLng(location.getLatitude(), location.getLongitude());
+//        LatLng finalPosition = new LatLng(hotel.getCoordenates().getLatitude(),hotel.getCoordenates().getLongitude());
+//
+//        double distance = SphericalUtil.computeDistanceBetween(initialPosition, finalPosition);
 
-        Criteria criteria = new Criteria();
-        provider = locationManager.getBestProvider(criteria, false);
-        Location location = locationManager.getLastKnownLocation(provider);
+//        return formatNumber(distance);
 
-        LatLng initialPosition = new LatLng(location.getLatitude(), location.getLongitude());
-        LatLng finalPosition = new LatLng(hotel.getCoordenates().getLatitude(),hotel.getCoordenates().getLongitude());
-
-        double distance = SphericalUtil.computeDistanceBetween(initialPosition, finalPosition);
-
-        return formatNumber(distance);
+        return "";
 
     }
 

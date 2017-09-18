@@ -3,6 +3,7 @@ package br.com.disapps.homepet.data.cache
 import android.content.Context
 import br.com.disapps.homepet.data.prefs.Preferences
 import br.com.disapps.homepet.data.ws.RestApi
+import br.com.disapps.homepet.data.ws.request.HotelsRequest
 import br.com.disapps.homepet.data.ws.response.CoordinateResponse
 import br.com.disapps.homepet.data.ws.response.HotelResponse
 import br.com.disapps.homepet.data.ws.response.ListCommentResponse
@@ -23,9 +24,9 @@ class HotelRepository (private val context: Context, preferences: Preferences, c
     private val KEY_COMMENTS : String = "comments"
     private val KEY_COORDINATES : String = "coordinates"
 
-    fun getHotels(hasInternetConnection: Boolean): Observable<ListHotelResponse> {
+    fun getHotels(hasInternetConnection: Boolean, request: HotelsRequest): Observable<ListHotelResponse> {
         return providers.getHoteis(
-                restApi.getHotels(),
+                restApi.getHotels(request.sort, request.sense),
                 DynamicKey(KEY_HOTELS),
                 EvictProvider(hasInternetConnection))
     }

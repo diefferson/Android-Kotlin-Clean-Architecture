@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/column1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/column2">
+
+        <TextView
+            android:id="@+id/title_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ordenar por:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:padding="10dp"/>
+
+        <RadioGroup
+            android:id="@+id/sort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/title_filter">
+
+            <RadioButton
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Preço"/>
+
+            <RadioButton
+                android:id="@+id/comments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Comentários"/>
+
+            <RadioButton
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Avaliações"/>
+        </RadioGroup>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/column2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/column1"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/sense_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sentido"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:padding="10dp" />
+
+        <RadioGroup
+            android:id="@+id/sense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/sense_title">
+
+            <RadioButton
+                android:id="@+id/asc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Menor para o Maior"/>
+
+            <RadioButton
+                android:id="@+id/desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Maior para o menor"/>
+
+        </RadioGroup>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/apply_sort"
+        android:text="Aplicar"
+        android:textColor="@color/colorPrimary"
+        android:background="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/buttom_height"
+        android:layout_marginTop="@dimen/buttom_margin"
+        app:layout_constraintTop_toBottomOf="@id/column1"/>
+
+
+</android.support.constraint.ConstraintLayout>

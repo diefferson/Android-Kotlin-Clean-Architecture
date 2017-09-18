@@ -3,6 +3,7 @@ package br.com.disapps.homepet.data.ws
 import br.com.disapps.homepet.data.model.Auth
 import br.com.disapps.homepet.data.model.Coordinate
 import br.com.disapps.homepet.data.model.User
+import br.com.disapps.homepet.data.ws.request.HotelsRequest
 import br.com.disapps.homepet.data.ws.request.PasswordLoginRequest
 import br.com.disapps.homepet.data.ws.request.RefreshTokenLoginRequest
 import br.com.disapps.homepet.data.ws.request.SignupRequest
@@ -30,7 +31,7 @@ interface RestApi {
     fun getUser(@Header("Authorization") accessToken: String) : Observable<UserResponse>
 
     @GET("hotel")
-    fun getHotels(): Observable<ListHotelResponse>
+    fun getHotels(@Query("sort") sort: String?, @Query("sense") sense: String?): Observable<ListHotelResponse>
 
     @GET("hotel/{codeHotel}")
     fun getHotel(@Path("codeHotel") codeHotel: Int): Observable<HotelResponse>
