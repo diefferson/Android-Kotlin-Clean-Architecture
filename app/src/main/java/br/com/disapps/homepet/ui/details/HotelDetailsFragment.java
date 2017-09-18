@@ -3,7 +3,9 @@ package br.com.disapps.homepet.ui.details;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -12,6 +14,7 @@ import br.com.disapps.homepet.app.HomePet;
 import br.com.disapps.homepet.data.model.Hotel;
 import br.com.disapps.homepet.ui.common.AppFragment;
 import br.com.disapps.homepet.ui.common.AppView;
+import br.com.disapps.homepet.ui.details.adapter.ServiceAdapter;
 import butterknife.BindView;
 
 /**
@@ -41,6 +44,17 @@ public class HotelDetailsFragment extends AppFragment<IHotelDetailsView, HotelDe
     @BindView(R.id.rating)
     RatingBar rating;
 
+    @BindView(R.id.service_recycler)
+    RecyclerView serviceRecycler;
+
+    @BindView(R.id.rating_bt)
+    Button rattingButton;
+
+    @BindView(R.id.comment_bt)
+    Button commentButton;
+
+    private ServiceAdapter serviceAdapter;
+
     public static HotelDetailsFragment newInstance(int codeHotel){
 
         HotelDetailsFragment hotelDetailsFragment = new HotelDetailsFragment();
@@ -65,7 +79,7 @@ public class HotelDetailsFragment extends AppFragment<IHotelDetailsView, HotelDe
 
     @Override
     public HotelDetailsPresenter createPresenter() {
-        return new HotelDetailsPresenter(HomePet.Companion.getInstance().getHoteltRepository());
+        return new HotelDetailsPresenter(HomePet.Companion.getInstance().getHotelRepository());
     }
 
     @Override
@@ -78,6 +92,15 @@ public class HotelDetailsFragment extends AppFragment<IHotelDetailsView, HotelDe
 
         getPresenter().loadHotel(codeHotel);
 
+        validateLogin();
+
+    }
+
+    private void validateLogin(){
+        if(!HomePet.Companion.getInstance().getPreferences().isLogged()){
+            rattingButton.setVisibility(View.GONE);
+            commentButton.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -88,5 +111,7 @@ public class HotelDetailsFragment extends AppFragment<IHotelDetailsView, HotelDe
         comments.setText(String.valueOf(hotel.getCommentsNumber()));
         rating.setRating(hotel.getRating());
         content.setVisibility(View.VISIBLE);
+        serviceAdapter = new ServiceAdapter(hotel.getServices());
+        serviceRecycler.setAdapter(serviceAdapter);
     }
 }

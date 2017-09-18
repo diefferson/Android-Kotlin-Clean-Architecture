@@ -24,24 +24,20 @@ class HomePet : Application() {
     var homePetRepository: HomePetRepository? = null
         private set
         get(){
-            if(homePetRepository == null) {
-                homePetRepository = HomePetRepository(this, preferences as Preferences, cacheDir, restApi as RestApi)
+            if(field == null) {
+                field = HomePetRepository(this, preferences as Preferences, cacheDir, restApi as RestApi)
             }
-            return homePetRepository;
+            return field;
         }
 
     var hotelRepository: HotelRepository? = null
         private set
         get(){
-            if(hotelRepository == null) {
-                hotelRepository = HotelRepository(this, preferences as Preferences, cacheDir, restApi as RestApi)
+            if(field == null) {
+                field = HotelRepository(this, preferences as Preferences, cacheDir, restApi as RestApi)
             }
-            return hotelRepository;
+            return field;
         }
-
-    init {
-
-    }
 
     override fun onCreate() {
         super.onCreate()

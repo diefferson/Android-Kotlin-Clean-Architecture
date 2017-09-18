@@ -55,7 +55,7 @@ public class HotelsFragment extends AppFragment<IHotelsView , HotelsPresenter> i
 
     @Override
     public HotelsPresenter createPresenter() {
-        return new HotelsPresenter(HomePet.Companion.getInstance().getHoteltRepository());
+        return new HotelsPresenter(HomePet.Companion.getInstance().getHotelRepository());
     }
 
     @Override

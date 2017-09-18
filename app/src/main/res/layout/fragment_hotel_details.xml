@@ -9,13 +9,15 @@
     <android.support.constraint.ConstraintLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <android.support.v7.widget.CardView
                 android:id="@+id/rating_container"
@@ -28,17 +30,26 @@
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="20dp">
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/evalute_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:textColor="@color/textColorPrimary"
+                        android:text="Avaliação"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/rating_section"/>
 
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/rating_section"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        app:layout_constraintStart_toEndOf="@id/hotel_image"
-                        app:layout_constraintTop_toBottomOf="@id/distance_section">
+                        app:layout_constraintTop_toBottomOf="@id/evalute_title"
+                        app:layout_constraintBottom_toBottomOf="parent">
 
                         <RatingBar
                             android:id="@+id/rating"
@@ -48,6 +59,7 @@
                             android:numStars="5"
                             android:stepSize="0.1"
                             android:isIndicator="true"
+                            android:layout_marginStart="10dp"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"/>
@@ -67,15 +79,15 @@
                         android:id="@+id/comment_section"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        app:layout_constraintTop_toBottomOf="@id/distance_section"
-                        app:layout_constraintStart_toEndOf="@id/rating_section">
+                        app:layout_constraintTop_toBottomOf="@id/evalute_title"
+                        app:layout_constraintStart_toEndOf="@id/rating_section"
+                        app:layout_constraintBottom_toBottomOf="parent">
 
                         <ImageView
                             android:id="@+id/ic_comment"
                             android:layout_width="15dp"
                             android:layout_height="15dp"
+                            android:layout_marginStart="10dp"
                             app:srcCompat="@drawable/ic_comment"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -107,7 +119,9 @@
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
 
                     <TextView
                         android:id="@+id/description_title"
@@ -143,7 +157,9 @@
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
 
                     <TextView
                         android:id="@+id/address_title"
@@ -179,7 +195,9 @@
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
 
                     <TextView
                         android:id="@+id/services_title"
@@ -196,7 +214,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/services_title"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:orientation="vertical"
+                        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                        tools:listitem="@layout/service_item"/>
 
                 </android.support.constraint.ConstraintLayout>
 

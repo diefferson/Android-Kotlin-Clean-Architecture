@@ -45,6 +45,16 @@
             app:layout_constraintRight_toRightOf="parent"
             android:id="@+id/profile_summary_tv" />
 
+        <Button
+            android:id="@+id/logout"
+            android:text="Sair"
+            android:textColor="@color/colorPrimary"
+            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/buttom_height"
+            android:layout_marginTop="@dimen/buttom_margin"
+            app:layout_constraintTop_toBottomOf="@id/profile_summary_tv"/>
+
         <include
             android:id="@+id/loading_view"
             android:layout_height="wrap_content"

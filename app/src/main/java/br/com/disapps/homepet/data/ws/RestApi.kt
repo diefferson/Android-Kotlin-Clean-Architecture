@@ -18,16 +18,16 @@ import retrofit2.http.*
 interface RestApi {
 
     @POST("auth")
-    fun authLogin(@Header("Authorization") clientSecret: String, @Body request: PasswordLoginRequest): Observable<ApiSimpleResponse<Auth>>
+    fun authLogin(@Header("Authorization") clientSecret: String, @Body request: PasswordLoginRequest): Observable<AuthResponse>
 
     @POST("auth")
-    fun refreshToken(@Header("Authorization") clientSecret: String, @Body request: RefreshTokenLoginRequest): Call<ApiSimpleResponse<Auth>>
+    fun refreshToken(@Header("Authorization") clientSecret: String, @Body request: RefreshTokenLoginRequest): Call<AuthResponse>
 
     @POST("signup")
-    fun signup(@Body request: SignupRequest): Observable<ApiSimpleResponse<String>>
+    fun signup(@Body request: SignupRequest): Observable<SignupResponse>
 
     @GET("user")
-    fun getUser(@Header("Authorization") accessToken: String) : Observable<ApiSimpleResponse<User>>
+    fun getUser(@Header("Authorization") accessToken: String) : Observable<UserResponse>
 
     @GET("hotel")
     fun getHotels(): Observable<ListHotelResponse>

@@ -57,8 +57,6 @@ public class HotelActivity  extends AppActivity
         setToolbar(toolbar);
         setContainer(container);
 
-       // setupLoadingFragment(loadingView);
-
         int hotelCode = getIntent().getExtras().getInt("hotelCode");
 
         getPresenter().loadHotel(hotelCode);
@@ -81,6 +79,16 @@ public class HotelActivity  extends AppActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void showLoading(boolean cancelable) {
+        loadingView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void dismissLoading() {
+        loadingView.setVisibility(View.GONE);
+    }
+
     public void fillHeaderHotel(Hotel hotel) {
 
         setTitle(hotel.getName());
@@ -101,7 +109,7 @@ public class HotelActivity  extends AppActivity
     }
 
     private void createPresenter() {
-        hotelPresenter =  new HotelPresenter(HomePet.Companion.getInstance().getHoteltRepository());
+        hotelPresenter =  new HotelPresenter(HomePet.Companion.getInstance().getHotelRepository());
         hotelPresenter.attachView(this);
     }
 

@@ -7,4 +7,6 @@ import br.com.disapps.homepet.ui.common.AppView;
  */
 
 public interface IProfileView extends AppView {
+
+    void onLogout();
 }

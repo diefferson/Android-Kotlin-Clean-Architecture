@@ -57,7 +57,7 @@ public class MapFragment  extends AppFragment<IMapView , MapPresenter> implement
 
     @Override
     public MapPresenter createPresenter() {
-        return new MapPresenter(HomePet.Companion.getInstance().getHoteltRepository());
+        return new MapPresenter(HomePet.Companion.getInstance().getHotelRepository());
     }
 
     @Override

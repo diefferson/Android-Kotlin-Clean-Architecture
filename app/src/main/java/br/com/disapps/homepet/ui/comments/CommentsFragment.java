@@ -53,7 +53,7 @@ public class CommentsFragment extends AppFragment<ICommentsView, CommentsPresent
 
     @Override
     public CommentsPresenter createPresenter() {
-        return new CommentsPresenter(HomePet.Companion.getInstance().getHoteltRepository());
+        return new CommentsPresenter(HomePet.Companion.getInstance().getHotelRepository());
     }
 
     @Override
