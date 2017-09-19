@@ -7,10 +7,10 @@
         android:icon="@drawable/ic_search"
         android:title="@string/title_home" />
 
-    <item
-        android:id="@+id/navigation_map"
-        android:icon="@drawable/ic_map"
-        android:title="@string/title_maps" />
+    <!--<item-->
+        <!--android:id="@+id/navigation_map"-->
+        <!--android:icon="@drawable/ic_map"-->
+        <!--android:title="@string/title_maps" />-->
 
     <item
         android:id="@+id/navigation_profile"

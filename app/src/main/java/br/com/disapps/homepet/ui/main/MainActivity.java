@@ -56,9 +56,9 @@ public class MainActivity extends AppActivity{
                 case R.id.navigation_home:
                         replaceFragment(HotelsFragment.newInstance());
                     return true;
-                case R.id.navigation_map:
-                        replaceFragment(MapFragment.newInstance(1));
-                    return true;
+//                case R.id.navigation_map:
+//                        replaceFragment(MapFragment.newInstance(1));
+//                    return true;
                 case R.id.navigation_profile:
                         if(HomePet.Companion.getInstance().getPreferences().isLogged()){
                             replaceFragment(ProfileFragment.newInstance());
