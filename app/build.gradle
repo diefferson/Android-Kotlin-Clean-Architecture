@@ -46,10 +46,10 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.0'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
-    implementation 'com.google.android.gms:play-services-maps:11.2.0'
-    implementation 'com.google.maps.android:android-maps-utils:0.4+'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'com.google.android.gms:play-services-maps:11.4.0'
+    implementation 'com.google.maps.android:android-maps-utils:0.4.4'
 
     // Android Support Library
     implementation "com.android.support:appcompat-v7:$rootProject.supportVersion"
@@ -61,7 +61,7 @@ dependencies {
     implementation "com.android.support:support-vector-drawable:$rootProject.constraintLayoutVersion"
 
     //BaseRecyclerViewAdapterHelper
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.26'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.28'
 
     // ButterKnife
     implementation "com.jakewharton:butterknife:$rootProject.butterKnifeVersion"
@@ -74,7 +74,6 @@ dependencies {
     implementation 'com.facebook.fresco:fresco:1.4.0'
     implementation 'com.romandanylyk:pageindicatorview:0.2.0'
 
-    implementation 'com.allattentionhere:fabulousfilter:0.0.4'
 
     // Retrofit & OkHttp
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
@@ -90,6 +89,6 @@ dependencies {
     annotationProcessor "com.github.VictorAlbertos.RxCache:compiler:$rootProject.rxCacheVersion"
     implementation "com.github.VictorAlbertos.Jolyglot:gson:$rootProject.rxCacheGsonVersion"
 
-    implementation 'com.firebase:firebase-jobdispatcher:0.5.2'
+    implementation "org.jetbrains.anko:anko-commons:$rootProject.ankoVersion"
 
 }

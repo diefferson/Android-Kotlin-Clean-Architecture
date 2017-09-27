@@ -66,6 +66,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:visibility="gone"/>
 
+        <include
+            android:id="@+id/loading_view"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            layout="@layout/loading_view"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"/>
+
     </android.support.constraint.ConstraintLayout>
 
 </ScrollView>

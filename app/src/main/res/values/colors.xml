@@ -8,4 +8,5 @@
     <color name="textColorSecundary">#757575</color>
     <color name="iconsColor">#FFFFFF</color>
     <color name="dividerColor">#BDBDBD</color>
+    <color name="transparencyBlack">#14000000</color>
 </resources>

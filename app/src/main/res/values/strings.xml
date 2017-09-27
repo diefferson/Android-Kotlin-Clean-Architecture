@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">HomePet</string>
-    <string name="title_home">Início</string>
-    <string name="title_maps">Mapa</string>
-    <string name="title_profile">Perfil</string>
-    <string name="title_activity_maps">Map</string>
-    <string name="search">Pesquisar</string>
-    <string name="filter">Filtro</string>
+    <string name="title_home">Home</string>
+    <string name="title_maps">Map</string>
+    <string name="title_profile">Profile</string>
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
 </resources>
