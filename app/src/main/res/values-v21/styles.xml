@@ -9,4 +9,8 @@
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
+    <style name="AppTheme.NoActionBar.Dark">
+        <item name="android:statusBarColor">@android:color/black</item>
+    </style>
+
 </resources>

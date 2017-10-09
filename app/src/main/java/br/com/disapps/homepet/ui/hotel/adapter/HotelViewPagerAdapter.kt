@@ -13,8 +13,9 @@ import br.com.disapps.homepet.ui.map.MapFragment
 /**
  * Created by diefferson.santos on 31/08/17.
  **/
-
 class HotelViewPagerAdapter(fm: FragmentManager, private val mContext: Context, private val codeHotel: Int) : FragmentPagerAdapter(fm) {
+
+    private val FRAGMENT_COUNT = 3
 
     override fun getItem(position: Int): Fragment? {
         when (position) {
@@ -22,14 +23,10 @@ class HotelViewPagerAdapter(fm: FragmentManager, private val mContext: Context, 
             1 -> return CommentsFragment.newInstance(codeHotel)
             2 -> return MapFragment.newInstance(codeHotel)
         }
-
-        // return LectureDetailsFragment.newInstance();
         return null
     }
 
-    override fun getCount(): Int {
-        return FRAGMENT_COUNT
-    }
+    override fun getCount() = FRAGMENT_COUNT
 
     override fun getPageTitle(position: Int): CharSequence? {
 
@@ -42,8 +39,4 @@ class HotelViewPagerAdapter(fm: FragmentManager, private val mContext: Context, 
         return null
     }
 
-    companion object {
-
-        private val FRAGMENT_COUNT = 3
-    }
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/full_screem"
+        android:icon="@drawable/ic_full_screem"
+        android:title="@string/title_full_screem"
+        app:showAsAction="ifRoom|collapseActionView"/>
+
+
+
+</menu>

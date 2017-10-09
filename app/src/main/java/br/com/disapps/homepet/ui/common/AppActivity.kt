@@ -5,18 +5,14 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
 import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.view.View
 import android.widget.FrameLayout
-
 import br.com.disapps.homepet.receiver.NetworkChangeReceiver
 import br.com.disapps.homepet.ui.custom.LoadingView
 import br.com.disapps.homepet.util.rx.RxHttpError
-import butterknife.ButterKnife
 
 /**
  * Created by diefferson.santos on 23/08/17.
@@ -29,10 +25,6 @@ abstract class AppActivity : AppCompatActivity(), IAppActivityListener, IErrorHa
 
     private var networkReceiver: NetworkChangeReceiver? = null
     private val internetListenerList: List<InternetConnectionListener>? = null
-
-    override fun bindView() {
-        ButterKnife.bind(this)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,13 +73,18 @@ abstract class AppActivity : AppCompatActivity(), IAppActivityListener, IErrorHa
 
 
     override fun displayArrowBack() {
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        if(supportActionBar != null){
+            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+            supportActionBar!!.setDisplayShowHomeEnabled(true)
+        }
     }
 
     override fun hideArrowBack() {
-        supportActionBar!!.setDisplayHomeAsUpEnabled(false)
-        supportActionBar!!.setDisplayShowHomeEnabled(false)
+        if(supportActionBar != null){
+            supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+            supportActionBar!!.setDisplayShowHomeEnabled(false)
+        }
+
     }
 
     override fun setTitle(title: String) {
@@ -142,7 +139,6 @@ abstract class AppActivity : AppCompatActivity(), IAppActivityListener, IErrorHa
             }
         }
     }
-
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

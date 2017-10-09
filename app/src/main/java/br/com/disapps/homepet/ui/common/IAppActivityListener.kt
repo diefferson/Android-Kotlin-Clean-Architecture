@@ -11,7 +11,6 @@ import br.com.disapps.homepet.ui.custom.LoadingView
  */
 interface IAppActivityListener {
 
-    fun bindView()
     fun setContainer(container: FrameLayout?)
     fun setTitle(title: String)
     fun setToolbar(toolbar: Toolbar)

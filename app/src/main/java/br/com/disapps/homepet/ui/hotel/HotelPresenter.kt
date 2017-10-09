@@ -33,14 +33,12 @@ class HotelPresenter(private val mHotelRepository: HotelRepository) : MvpBasePre
 
                         if (isViewAttached) {
                             view.fillHeaderHotel(hotel!!)
-                            view.dismissLoading()
                         }
                     }
 
                     override fun onError(e: Throwable) {
                         if (isViewAttached) {
                             IErrorHandlerHelper.defaultErrorResolver(this@HotelPresenter.view, e)
-                            view.dismissLoading()
                         }
                     }
 

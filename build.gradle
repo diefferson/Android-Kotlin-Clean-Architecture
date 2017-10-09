@@ -40,11 +40,10 @@ ext{
     constraintLayoutVersion = '1.0.2'
     retrofitVersion = '2.3.0'
     okhttpVersion = '3.8.1'
-    butterKnifeVersion = '8.7.0'
     rxJavaVersion = '2.1.0'
     rxAndroidVersion = '2.0.1'
     rxCacheVersion = '1.8.1-2.x'
     rxCacheGsonVersion = '0.0.3'
-    ankoVersion= '0.10.1'
+    ankoVersion= '0.10.0'
 
 }

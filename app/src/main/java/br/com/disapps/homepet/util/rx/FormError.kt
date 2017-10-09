@@ -9,8 +9,6 @@ import java.util.HashMap
 
 class FormError : HashMap<String, ArrayList<String>>() {
 
-    fun getFirstError(key: String): String {
-        return this[key]!!.get(0)
-    }
+    fun getFirstError(key: String) = this[key]!!.get(0)
 
 }

@@ -5,4 +5,8 @@
     <string name="title_profile">Perfil</string>
     <string name="search">Pesquisar</string>
     <string name="filter">Filtro</string>
+
+    <string name="comment_hint">Seu comentario aqui</string>
+    <string name="include_comment">Incluir comentário</string>
+    <string name="title_full_screem">Abrir Imagens</string>
 </resources>

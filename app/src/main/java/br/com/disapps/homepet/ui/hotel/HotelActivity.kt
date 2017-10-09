@@ -1,7 +1,11 @@
 package br.com.disapps.homepet.ui.hotel
 
+import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import br.com.disapps.homepet.R
@@ -10,7 +14,10 @@ import br.com.disapps.homepet.data.model.Hotel
 import br.com.disapps.homepet.ui.common.AppActivity
 import br.com.disapps.homepet.ui.hotel.hotelFragment.HotelFragment
 import br.com.disapps.homepet.ui.hotels.adapter.ImageViewPagerAdapter
+import br.com.disapps.homepet.ui.imageViewer.ImageViewerActivity
+import br.com.disapps.homepet.ui.profile.ProfileFragment
 import kotlinx.android.synthetic.main.activity_hotel.*
+import org.jetbrains.anko.startActivity
 
 /**
  * Created by diefferson.santos on 31/08/17.
@@ -19,11 +26,11 @@ import kotlinx.android.synthetic.main.activity_hotel.*
 class HotelActivity : AppActivity(), AppBarLayout.OnOffsetChangedListener, IHotelView {
 
     private var hotelPresenter: HotelPresenter? = null
+    private var hotel: Hotel?  = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hotel)
-        bindView()
 
         setToolbar(toolbar)
         setContainer(container!!)
@@ -45,27 +52,31 @@ class HotelActivity : AppActivity(), AppBarLayout.OnOffsetChangedListener, IHote
                 onBackPressed()
                 return true
             }
+            R.id.full_screem->{startActivity<ImageViewerActivity>("hotel" to hotel!!) }
         }
 
         return super.onOptionsItemSelected(item)
     }
 
-    override fun showLoading(cancelable: Boolean) {
-        loading_view.visibility = View.VISIBLE
+    override fun fillHeaderHotel(h: Hotel) {
+
+        hotel = h
+
+        setTitle(hotel!!.name!!)
+
+        if(hotel!!.images != null && !hotel!!.images!!.isEmpty()){
+            image_slide!!.adapter = ImageViewPagerAdapter(this, hotel!!.images!!)
+            pageIndicatorView!!.setViewPager(image_slide)
+            pageIndicatorView!!.visibility = View.VISIBLE
+            image_slide.visibility = View.VISIBLE
+
+            collapsing.setOnClickListener {  startActivity<ImageViewerActivity>("hotel" to hotel!!) }
+        }
     }
 
-    override fun dismissLoading() {
-        loading_view.visibility = View.GONE
-    }
-
-    override fun fillHeaderHotel(hotel: Hotel) {
-
-        setTitle(hotel.name!!)
-
-        image_slide!!.adapter = ImageViewPagerAdapter(this, hotel.images!!)
-        pageIndicatorView!!.setViewPager(image_slide)
-        pageIndicatorView!!.visibility = View.VISIBLE
-
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.hotel_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     private val presenter: HotelPresenter

@@ -15,21 +15,13 @@ import kotlinx.android.synthetic.main.fragment_signup.*
 
 class SignupFragment : AppFragment<ISignUpView, SignupPresenter>(), ISignUpView {
 
-    companion object {
-        fun newInstance(): SignupFragment {
-            return SignupFragment()
-        }
-    }
-
     override val fragmentTag: String
         get() = SignupFragment::class.java.simpleName
 
     override val fragmentLayout: Int
         get() = R.layout.fragment_signup
 
-    override fun createPresenter(): SignupPresenter {
-        return SignupPresenter(HomePet.instance!!.restApi!!, HomePet.instance!!.preferences!!)
-    }
+    override fun createPresenter() = SignupPresenter(HomePet.instance!!.restApi!!, HomePet.instance!!.preferences!!)
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,7 +34,6 @@ class SignupFragment : AppFragment<ISignUpView, SignupPresenter>(), ISignUpView 
 
         signup_bt.setOnClickListener { signup()}
     }
-
 
     private fun signup() {
         if (validate()) {
@@ -84,6 +75,10 @@ class SignupFragment : AppFragment<ISignUpView, SignupPresenter>(), ISignUpView 
 
     override fun signupSucess() {
         Snackbar.make(password_validate, "Usuário criado com sucesso!", Snackbar.LENGTH_LONG).show()
+    }
+
+    companion object {
+        fun newInstance() = SignupFragment()
     }
 
 }

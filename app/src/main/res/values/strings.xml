@@ -5,4 +5,10 @@
     <string name="title_profile">Profile</string>
     <string name="search">Search</string>
     <string name="filter">Filter</string>
+
+
+    <string name="comment_hint">Your comment here</string>
+    <string name="include_comment">Include Comment</string>
+    <string name="title_full_screem">Open Images</string>
+    <string name="sucess_comment">Comentário incluído com sucesso</string>
 </resources>

@@ -7,6 +7,7 @@ import br.com.disapps.homepet.app.HomePet
 import br.com.disapps.homepet.data.model.Hotel
 import br.com.disapps.homepet.ui.common.AppFragment
 import br.com.disapps.homepet.ui.details.adapter.ServiceAdapter
+import br.com.disapps.homepet.ui.includeComment.IncludeCommentFragment
 import kotlinx.android.synthetic.main.fragment_hotel_details.*
 
 /**
@@ -19,12 +20,10 @@ class HotelDetailsFragment : AppFragment<IHotelDetailsView, HotelDetailsPresente
     override val fragmentTag: String
         get() = HotelDetailsFragment::class.java.simpleName
 
-    override val fragmentLayout: Int
-        get() = R.layout.fragment_hotel_details
+    override val fragmentLayout = R.layout.fragment_hotel_details
 
-    override fun createPresenter(): HotelDetailsPresenter {
-        return HotelDetailsPresenter(HomePet.instance!!.hotelRepository!!)
-    }
+
+    override fun createPresenter() = HotelDetailsPresenter(HomePet.instance!!.hotelRepository!!)
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,8 +34,9 @@ class HotelDetailsFragment : AppFragment<IHotelDetailsView, HotelDetailsPresente
 
         getPresenter().loadHotel(codeHotel)
 
-        validateLogin()
+        comment_bt.setOnClickListener{  appActivityListener!!.replaceAndBackStackFragment(IncludeCommentFragment.newInstance(codeHotel)) }
 
+        validateLogin()
     }
 
     private fun validateLogin() {

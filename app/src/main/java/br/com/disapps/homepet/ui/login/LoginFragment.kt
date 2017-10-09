@@ -9,7 +9,6 @@ import br.com.disapps.homepet.app.HomePet
 import br.com.disapps.homepet.ui.common.AppFragment
 import br.com.disapps.homepet.ui.profile.ProfileFragment
 import br.com.disapps.homepet.ui.signup.SignupFragment
-import butterknife.OnClick
 import kotlinx.android.synthetic.main.fragment_login.*
 
 /**
@@ -18,22 +17,13 @@ import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : AppFragment<ILoginView, LoginPresenter>(), ILoginView {
 
-    companion object {
-
-        fun newInstance(): LoginFragment {
-            return LoginFragment()
-        }
-    }
-
     override val fragmentTag: String
         get() = LoginFragment::class.java.simpleName
 
     override val fragmentLayout: Int
         get() = R.layout.fragment_login
 
-    override fun createPresenter(): LoginPresenter {
-        return LoginPresenter(HomePet.instance!!.restApi!!, HomePet.instance!!.preferences!!)
-    }
+    override fun createPresenter() = LoginPresenter(HomePet.instance!!.restApi!!, HomePet.instance!!.preferences!!)
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -76,5 +66,8 @@ class LoginFragment : AppFragment<ILoginView, LoginPresenter>(), ILoginView {
         return valid
     }
 
+    companion object {
+        fun newInstance()= LoginFragment()
+    }
 
 }

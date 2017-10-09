@@ -10,9 +10,9 @@
         app:actionViewClass="android.support.v7.widget.SearchView" />
 
     <item
-        android:id="@+id/filter_hotel"
-        android:icon="@drawable/ic_filter"
-        android:title="@string/filter"
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_user"
+        android:title="@string/title_profile"
         app:showAsAction="ifRoom|collapseActionView"/>
 
 </menu>

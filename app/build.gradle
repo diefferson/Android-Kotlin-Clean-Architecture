@@ -20,7 +20,6 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
-
     buildTypes {
         debug {
             buildConfigField 'boolean', 'HTTP_LOG_ENABLED', "true"
@@ -43,6 +42,8 @@ android {
 
 dependencies {
 
+    implementation 'org.jetbrains.anko:anko-commons:0.10.1'
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
@@ -62,10 +63,6 @@ dependencies {
 
     //BaseRecyclerViewAdapterHelper
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.28'
-
-    // ButterKnife
-    implementation "com.jakewharton:butterknife:$rootProject.butterKnifeVersion"
-    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterKnifeVersion"
 
     // Mosby Mvp
     implementation 'com.hannesdorfmann.mosby3:mvp:3.0.4' // Plain MVP
@@ -89,6 +86,8 @@ dependencies {
     annotationProcessor "com.github.VictorAlbertos.RxCache:compiler:$rootProject.rxCacheVersion"
     implementation "com.github.VictorAlbertos.Jolyglot:gson:$rootProject.rxCacheGsonVersion"
 
-    implementation "org.jetbrains.anko:anko-commons:$rootProject.ankoVersion"
+}
 
+repositories {
+    mavenCentral()
 }

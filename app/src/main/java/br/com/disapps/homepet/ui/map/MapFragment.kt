@@ -19,21 +19,6 @@ import kotlinx.android.synthetic.main.fragment_map.*
 
 class MapFragment : AppFragment<IMapView, MapPresenter>(), IMapView {
 
-    companion object {
-
-        fun newInstance(codeHotel: Int): MapFragment {
-
-            val mapFragment = MapFragment()
-
-            val args = Bundle()
-            args.putInt("codeHotel", codeHotel)
-            mapFragment.arguments = args
-
-            return mapFragment
-        }
-    }
-
-
     private var mMap: GoogleMap? = null
 
     override val fragmentTag: String
@@ -42,9 +27,7 @@ class MapFragment : AppFragment<IMapView, MapPresenter>(), IMapView {
     override val fragmentLayout: Int
         get() = R.layout.fragment_map
 
-    override fun createPresenter(): MapPresenter {
-        return MapPresenter(HomePet.instance!!.hotelRepository!!)
-    }
+    override fun createPresenter()= MapPresenter(HomePet.instance!!.hotelRepository!!)
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -78,4 +61,17 @@ class MapFragment : AppFragment<IMapView, MapPresenter>(), IMapView {
 
     }
 
+    companion object {
+
+        fun newInstance(codeHotel: Int): MapFragment {
+
+            val mapFragment = MapFragment()
+
+            val args = Bundle()
+            args.putInt("codeHotel", codeHotel)
+            mapFragment.arguments = args
+
+            return mapFragment
+        }
+    }
 }

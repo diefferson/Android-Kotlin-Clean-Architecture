@@ -16,21 +16,17 @@ import br.com.disapps.homepet.data.ws.request.HotelsRequest
 import br.com.disapps.homepet.ui.common.AppFragment
 import br.com.disapps.homepet.ui.hotel.HotelActivity
 import br.com.disapps.homepet.ui.hotels.adapter.HotelAdapter
+import br.com.disapps.homepet.ui.profile.ProfileFragment
 import kotlinx.android.synthetic.main.fragment_hotels.*
 import kotlinx.android.synthetic.main.include_filter_layout.*
+import android.support.v7.widget.RecyclerView
+
 
 /**
  * Created by diefferson.santos on 23/08/17.
  */
 
 class HotelsFragment : AppFragment<IHotelsView, HotelsPresenter>(), IHotelsView {
-
-    companion object {
-
-        fun newInstance(): HotelsFragment {
-            return HotelsFragment()
-        }
-    }
 
     private var hotelAdapter: HotelAdapter? = null
 
@@ -42,9 +38,7 @@ class HotelsFragment : AppFragment<IHotelsView, HotelsPresenter>(), IHotelsView 
     override val fragmentLayout: Int
         get() = R.layout.fragment_hotels
 
-    override fun createPresenter(): HotelsPresenter {
-        return HotelsPresenter(HomePet.instance!!.hotelRepository!!)
-    }
+    override fun createPresenter() = HotelsPresenter(HomePet.instance!!.hotelRepository!!)
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,25 +57,33 @@ class HotelsFragment : AppFragment<IHotelsView, HotelsPresenter>(), IHotelsView 
         getPresenter().loadHoteis(HotelsRequest())
 
         apply_sort.setOnClickListener { applySort() }
+
+        fab_filter.setOnClickListener { fabFilter() }
+
+        hotel_recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                if (dy > 0)
+                    fab_filter.hide()
+                else if (dy < 0)
+                    fab_filter.show()
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater!!.inflate(R.menu.hotels_menu, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item!!.itemId == R.id.filter_hotel) {
+     fun fabFilter(){
 
-            if (mBottomSheetBehavior!!.state == BottomSheetBehavior.STATE_COLLAPSED) {
-                mBottomSheetBehavior!!.setState(BottomSheetBehavior.STATE_EXPANDED)
-            } else {
-                mBottomSheetBehavior!!.setState(BottomSheetBehavior.STATE_COLLAPSED)
-            }
-
-            return true
+        if (mBottomSheetBehavior!!.state == BottomSheetBehavior.STATE_COLLAPSED) {
+            mBottomSheetBehavior!!.state = BottomSheetBehavior.STATE_EXPANDED
+            fab_filter.setImageDrawable(resources.getDrawable(R.drawable.ic_arrow_bottom))
+        } else {
+            mBottomSheetBehavior!!.state = BottomSheetBehavior.STATE_COLLAPSED
+            fab_filter.setImageDrawable(resources.getDrawable(R.drawable.ic_filter))
         }
 
-        return super.onOptionsItemSelected(item)
     }
 
     override fun fillHotelAdapter(hoteis: List<Hotel>) {
@@ -100,9 +102,20 @@ class HotelsFragment : AppFragment<IHotelsView, HotelsPresenter>(), IHotelsView 
         hotel_recycler.adapter = hotelAdapter
     }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item!!.itemId){
+            R.id.profile-> {
+                appActivityListener!!.replaceAndBackStackFragment(ProfileFragment.newInstance())
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     fun applySort() {
         val request = HotelsRequest()
         mBottomSheetBehavior!!.state = BottomSheetBehavior.STATE_COLLAPSED
+        fab_filter.setImageDrawable(resources.getDrawable(R.drawable.ic_filter))
         when (sort.checkedRadioButtonId) {
             R.id.price -> request.sort = "price"
             R.id.comments -> request.sort = "comments"
@@ -115,5 +128,9 @@ class HotelsFragment : AppFragment<IHotelsView, HotelsPresenter>(), IHotelsView 
         }
 
         getPresenter().loadHoteis(request)
+    }
+
+    companion object {
+        fun newInstance()= HotelsFragment()
     }
 }

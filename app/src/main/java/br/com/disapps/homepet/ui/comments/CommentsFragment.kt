@@ -14,32 +14,15 @@ import kotlinx.android.synthetic.main.fragment_comments.*
  **/
 class CommentsFragment : AppFragment<ICommentsView, CommentsPresenter>(), ICommentsView {
 
-    companion object {
-
-        fun newInstance(codeHotel: Int): CommentsFragment {
-
-            val commentsFragment = CommentsFragment()
-
-            val args = Bundle()
-            args.putInt("codeHotel", codeHotel)
-            commentsFragment.arguments = args
-
-            return commentsFragment
-        }
-    }
-
     private var commentAdapter: CommentAdapter? = null
 
     override val fragmentTag: String
         get() = CommentsFragment::class.java.simpleName
 
-    override val fragmentLayout: Int
-        get() = R.layout.fragment_comments
+    override val fragmentLayout = R.layout.fragment_comments
 
-    override fun createPresenter(): CommentsPresenter {
-        return CommentsPresenter(HomePet.instance!!.hotelRepository!!)
-    }
-
+    override fun createPresenter() = CommentsPresenter(HomePet.instance!!.hotelRepository!!)
+    
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -53,6 +36,20 @@ class CommentsFragment : AppFragment<ICommentsView, CommentsPresenter>(), IComme
     override fun fillComments(comments: List<Comment>) {
         commentAdapter = CommentAdapter(comments)
         comments_recycler.adapter = commentAdapter
+    }
+
+    companion object {
+
+        fun newInstance(codeHotel: Int): CommentsFragment {
+
+            val commentsFragment = CommentsFragment()
+
+            val args = Bundle()
+            args.putInt("codeHotel", codeHotel)
+            commentsFragment.arguments = args
+
+            return commentsFragment
+        }
     }
 
 }

@@ -15,22 +15,13 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : AppFragment<IProfileView, ProfilePresenter>(), IProfileView {
 
-    companion object {
-
-        fun newInstance(): ProfileFragment {
-            return ProfileFragment()
-        }
-    }
-
     override val fragmentTag: String
         get() = ProfileFragment::class.java.simpleName
 
     override val fragmentLayout: Int
         get() = R.layout.fragment_profile
 
-    override fun createPresenter(): ProfilePresenter {
-        return ProfilePresenter(HomePet.instance!!.preferences!!)
-    }
+    override fun createPresenter()= ProfilePresenter(HomePet.instance!!.preferences!!)
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,6 +38,13 @@ class ProfileFragment : AppFragment<IProfileView, ProfilePresenter>(), IProfileV
 
     override fun onLogout() {
         appActivityListener!!.replaceFragment(LoginFragment.newInstance())
+    }
+
+
+    companion object {
+
+        fun newInstance() = ProfileFragment()
+
     }
 
 }

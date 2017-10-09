@@ -2,24 +2,14 @@ package br.com.disapps.homepet.ui.common
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.DrawableRes
-import android.support.annotation.StringRes
-import android.support.constraint.ConstraintLayout
-import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-
 import com.hannesdorfmann.mosby3.mvp.MvpFragment
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter
-
 import java.net.HttpURLConnection
-
-import br.com.disapps.homepet.ui.custom.LoadingView
 import br.com.disapps.homepet.util.rx.RxHttpError
-import butterknife.ButterKnife
-import butterknife.Unbinder
 
 /**
  * Created by diefferson.santos on 23/08/17.
@@ -29,7 +19,7 @@ abstract class AppFragment<V : AppView, P : MvpPresenter<V>> : MvpFragment<V, P>
 
     protected var appActivityListener: IAppActivityListener? = null
         private set
-    private var unbinder: Unbinder? = null
+
     private var loadingView: View? = null
 
     override fun hasInternetConnection(): Boolean {
@@ -54,8 +44,6 @@ abstract class AppFragment<V : AppView, P : MvpPresenter<V>> : MvpFragment<V, P>
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        unbinder = ButterKnife.bind(this, view!!)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -63,7 +51,6 @@ abstract class AppFragment<V : AppView, P : MvpPresenter<V>> : MvpFragment<V, P>
     }
 
     override fun onDestroyView() {
-        unbinder!!.unbind()
         super.onDestroyView()
     }
 
@@ -95,4 +82,5 @@ abstract class AppFragment<V : AppView, P : MvpPresenter<V>> : MvpFragment<V, P>
     abstract val fragmentTag: String
 
     abstract val fragmentLayout: Int
+
 }

@@ -18,6 +18,7 @@ import io.reactivex.schedulers.Schedulers
  */
 
 class CommentsPresenter(private val mHotelRepository: HotelRepository) : MvpBasePresenter<ICommentsView>() {
+
     private val disposables = CompositeDisposable()
 
     fun loadComments(codeHotel: Int) {
