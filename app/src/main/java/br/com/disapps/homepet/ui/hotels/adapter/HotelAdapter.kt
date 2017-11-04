@@ -23,9 +23,6 @@ import br.com.disapps.homepet.ui.custom.CustomViewHolder
 
 class HotelAdapter(data: List<Hotel>?) : BaseQuickAdapter<Hotel, CustomViewHolder>(R.layout.hotel_item, data) {
 
-    private val locationManager: LocationManager? = null
-    private val provider: String? = null
-
     override fun convert(helper: CustomViewHolder, item: Hotel) {
         helper.setText(R.id.hotel_name, item.name)
         if(item.coverImage!= null){
@@ -35,42 +32,7 @@ class HotelAdapter(data: List<Hotel>?) : BaseQuickAdapter<Hotel, CustomViewHolde
         helper.setText(R.id.ratings, item.ratingsNumber.toString())
         helper.setText(R.id.comments, item.commentsNumber.toString())
         helper.setText(R.id.price, item.price.toString())
-        helper.setText(R.id.distance, distance(item))
+        helper.setText(R.id.distance, item.address)
     }
-
-    //TODO: REFECTOR
-    private fun distance(hotel: Hotel): String {
-
-        //        locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
-        //
-        //        Criteria criteria = new Criteria();
-        //        provider = locationManager.getBestProvider(criteria, false);
-        //
-        //
-        //        Location location = locationManager.getLastKnownLocation(provider);
-        //
-        //        LatLng initialPosition = new LatLng(location.getLatitude(), location.getLongitude());
-        //        LatLng finalPosition = new LatLng(hotel.getCoordenates().getLatitude(),hotel.getCoordenates().getLongitude());
-        //
-        //        double distance = SphericalUtil.computeDistanceBetween(initialPosition, finalPosition);
-
-        //        return formatNumber(distance);
-
-        return ""
-
-    }
-
-    private fun formatNumber(distance: Double): String {
-        var distance = distance
-
-        var unit = " m"
-        if (distance > 1000) {
-            distance /= 1000.0
-            unit = " km"
-        }
-
-        return String.format("%4.3f%s distante", distance, unit)
-    }
-
 
 }
