@@ -10,6 +10,7 @@ import br.com.disapps.homepet.data.ws.request.PasswordLoginRequest
 import br.com.disapps.homepet.data.ws.response.ApiListResponse
 import br.com.disapps.homepet.data.ws.response.ApiSimpleResponse
 import br.com.disapps.homepet.data.ws.response.AuthResponse
+import br.com.disapps.homepet.data.ws.response.UserResponse
 import br.com.disapps.homepet.util.rx.IErrorHandlerHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -42,13 +43,8 @@ class LoginPresenter(private val restApi: RestApi, private val preferences: Pref
                         .subscribeWith(object : DisposableObserver<AuthResponse>() {
 
                             override fun onNext(response: AuthResponse) {
-
                                 preferences.saveAuth(response.content!!)
-
-                                if (isViewAttached) {
-                                    view.dismissLoading()
-                                    view.loginSuccessfull()
-                                }
+                                getUser()
                             }
 
                             override fun onError(e: Throwable) {
@@ -62,6 +58,39 @@ class LoginPresenter(private val restApi: RestApi, private val preferences: Pref
 
                             }
                         }))
+
+
+
+    }
+
+    private fun getUser() {
+
+        disposables.add(
+            restApi.getUser(preferences.authTokenWithPrefix)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : DisposableObserver<UserResponse>() {
+
+                override fun onNext(response: UserResponse) {
+                    preferences.saveUser(response.content!!)
+
+                    if (isViewAttached) {
+                        view.dismissLoading()
+                        view.loginSuccessfull()
+                    }
+                }
+
+                override fun onError(e: Throwable) {
+                    if (isViewAttached) {
+                        view.dismissLoading()
+                        IErrorHandlerHelper.defaultErrorResolver(this@LoginPresenter.view, e)
+                    }
+                }
+
+                override fun onComplete() {
+
+                }
+            }))
 
     }
 }

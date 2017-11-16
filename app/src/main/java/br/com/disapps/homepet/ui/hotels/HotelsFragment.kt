@@ -3,6 +3,7 @@ package br.com.disapps.homepet.ui.hotels
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuInflater
@@ -20,17 +21,20 @@ import br.com.disapps.homepet.ui.profile.ProfileFragment
 import kotlinx.android.synthetic.main.fragment_hotels.*
 import kotlinx.android.synthetic.main.include_filter_layout.*
 import android.support.v7.widget.RecyclerView
+import br.com.disapps.homepet.ui.login.LoginFragment
 
 
 /**
  * Created by diefferson.santos on 23/08/17.
  */
 
-class HotelsFragment : AppFragment<IHotelsView, HotelsPresenter>(), IHotelsView {
+class HotelsFragment : AppFragment<IHotelsView, HotelsPresenter>(), IHotelsView, SwipeRefreshLayout.OnRefreshListener{
 
     private var hotelAdapter: HotelAdapter? = null
 
     private var mBottomSheetBehavior: BottomSheetBehavior<*>? = null
+
+    var request = HotelsRequest()
 
     override val fragmentTag: String
         get() = HotelsFragment::class.java.simpleName
@@ -54,10 +58,9 @@ class HotelsFragment : AppFragment<IHotelsView, HotelsPresenter>(), IHotelsView 
         hotel_recycler.setHasFixedSize(true)
         hotel_recycler.layoutManager = LinearLayoutManager(context)
 
-        getPresenter().loadHoteis(HotelsRequest())
+        swipe_refresh_container.setOnRefreshListener(this)
 
         apply_sort.setOnClickListener { applySort() }
-
         fab_filter.setOnClickListener { fabFilter() }
 
         hotel_recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -70,8 +73,16 @@ class HotelsFragment : AppFragment<IHotelsView, HotelsPresenter>(), IHotelsView 
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        getPresenter().loadHoteis(request)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater!!.inflate(R.menu.hotels_menu, menu)
+        if(menu!!.findItem(R.id.action_menu_edit)!= null){
+            menu.removeItem(R.id.action_menu_edit)
+        }
     }
 
      fun fabFilter(){
@@ -105,7 +116,12 @@ class HotelsFragment : AppFragment<IHotelsView, HotelsPresenter>(), IHotelsView 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item!!.itemId){
             R.id.profile-> {
-                appActivityListener!!.replaceAndBackStackFragment(ProfileFragment.newInstance())
+                if(HomePet.instance!!.preferences!!.isLogged){
+                    appActivityListener!!.replaceAndBackStackFragment(ProfileFragment.newInstance())
+                }else{
+                    appActivityListener!!.replaceAndBackStackFragment(LoginFragment.newInstance())
+                }
+
                 return true
             }
         }
@@ -113,7 +129,7 @@ class HotelsFragment : AppFragment<IHotelsView, HotelsPresenter>(), IHotelsView 
     }
 
     fun applySort() {
-        val request = HotelsRequest()
+        request = HotelsRequest()
         mBottomSheetBehavior!!.state = BottomSheetBehavior.STATE_COLLAPSED
         fab_filter.setImageDrawable(resources.getDrawable(R.drawable.ic_filter))
         when (sort.checkedRadioButtonId) {
@@ -132,5 +148,17 @@ class HotelsFragment : AppFragment<IHotelsView, HotelsPresenter>(), IHotelsView 
 
     companion object {
         fun newInstance()= HotelsFragment()
+    }
+
+    override fun onRefresh() {
+        getPresenter().loadHoteis(request)
+    }
+
+    override fun showLoading(cancelable: Boolean) {
+        swipe_refresh_container.isRefreshing = true
+    }
+
+    override fun dismissLoading() {
+        swipe_refresh_container.isRefreshing = false
     }
 }

@@ -28,6 +28,8 @@ class LoginFragment : AppFragment<ILoginView, LoginPresenter>(), ILoginView {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        appActivityListener!!.displayArrowBack()
+
         appActivityListener!!.setTitle("Entrar")
         setupLoadingFragment(loading_view)
 

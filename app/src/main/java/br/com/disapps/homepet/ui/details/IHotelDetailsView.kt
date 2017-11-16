@@ -10,4 +10,6 @@ import br.com.disapps.homepet.ui.common.AppView
 interface IHotelDetailsView : AppView {
 
     fun fillHotelDetails(hotel: Hotel)
+    fun fillSuccesInclude()
+    fun fillErrorInclude(message: String)
 }

@@ -11,4 +11,18 @@
     <string name="include_comment">Include Comment</string>
     <string name="title_full_screem">Open Images</string>
     <string name="sucess_comment">Comentário incluído com sucesso</string>
+    <string name="save">Salvar</string>
+    <string name="name_hint">Nome</string>
+    <string name="hint_e_mail">E-mail</string>
+    <string name="hint_address">Endereço</string>
+    <string name="hint_phone">Telefone</string>
+    <string name="uf_hint">UF</string>
+    <string name="city_hint">Cidade</string>
+    <string name="edit_profile">Editar Perfil</string>
+    <string name="select_image">Selecionar Imagem</string>
+    <string name="err_required_field">Campo Obrigatorio</string>
+    <string name="ratting_hotel">Avaliar Hotel</string>
+    <string name="send">Enviar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="sucess_rating">Avaliação enviada com sucesso!</string>
 </resources>

@@ -1,5 +1,6 @@
 package br.com.disapps.homepet.data.model
 
+import android.net.Uri
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
@@ -7,6 +8,7 @@ import java.util.*
  * Created by diefferson.santos on 24/08/17.
  */
 class User {
+
     var code: Int? = null
     var name: String? = null
     var email: String? = null
@@ -19,4 +21,5 @@ class User {
     var city: String? = null
     var uf: String?= null
     var status: String? = null
+    var imageUri:Uri? = null
 }

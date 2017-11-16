@@ -28,6 +28,9 @@ interface RestApi {
     @GET("user")
     fun getUser(@Header("Authorization") accessToken: String) : Observable<UserResponse>
 
+    @PATCH("user")
+    fun patchUser(@Header("Authorization") accessToken: String, @Body user:User) : Observable<UserResponse>
+
     @GET("hotel")
     fun getHotels(@Query("sort") sort: String?, @Query("sense") sense: String?): Observable<ListHotelResponse>
 
@@ -41,7 +44,7 @@ interface RestApi {
     fun postComment(@Header("Authorization") authorization: String, @Body request: IncludeCommentRequest): Observable<IncludeResponse>
 
     @POST("rating")
-    fun postRating(@Body request: IncludeRatingRequest): Observable<IncludeResponse>
+    fun postRating(@Header("Authorization") authorization: String,@Body request: IncludeRatingRequest): Observable<IncludeResponse>
 
     @GET("coordinates/{codeHotel}")
     fun getCoordinates(@Path("codeHotel") codeHotel: Int) : Observable<CoordinateResponse>

@@ -84,10 +84,10 @@ class RxHttpError private constructor() {
             error.errorCode = httpError.code()
             error.errorMessage = httpError.message()
 
-            if (typesByCode.containsKey(error.errorCode)) {
-                val cType = typesByCode[error.errorCode]
-                error.errorObject = parser.fromJson<Any>(httpError.response().errorBody()!!.string(), cType)
-            } else {
+//            if (typesByCode.containsKey(error.errorCode)) {
+//                val cType = typesByCode[error.errorCode]
+//                error.errorObject = parser.fromJson<Any>(httpError.response().errorBody()!!.string(), cType)
+//            } else {
 
                 try {
                     val non400 = parser.fromJson(httpError.response().errorBody()!!.string(), Non400::class.java)
@@ -97,7 +97,7 @@ class RxHttpError private constructor() {
                     error.detail = ""
                 }
 
-            }
+//            }
 
         }
     }
