@@ -65,12 +65,10 @@ class MapFragment : AppFragment<IMapView, MapPresenter>(), IMapView {
         mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(hotelLocal, 15f))
 
         mMap!!.setOnMapClickListener {
-            val gmmIntentUri = Uri.parse("geo:"+coordinate.latitude+","+coordinate.longitude)
+            val gmmIntentUri = Uri.parse("http://maps.google.co.in/maps?q="+coordinate.latitude+","+coordinate.longitude)
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-            mapIntent.`package` = "com.google.android.apps.maps"
             startActivity(mapIntent)
         }
-
     }
 
     companion object {
