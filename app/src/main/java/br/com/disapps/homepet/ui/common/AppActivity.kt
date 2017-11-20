@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import br.com.disapps.homepet.receiver.NetworkChangeReceiver
 import br.com.disapps.homepet.ui.custom.LoadingView
@@ -138,6 +140,10 @@ abstract class AppActivity : AppCompatActivity(), IAppActivityListener, IErrorHa
                 }
             }
         }
+    }
+
+    override fun inflateView(resource: Int, viewGroup: View): View {
+        return layoutInflater.inflate(resource, viewGroup.parent as ViewGroup, false)
     }
 
     override fun onSupportNavigateUp(): Boolean {

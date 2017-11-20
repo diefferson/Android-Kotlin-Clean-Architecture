@@ -25,4 +25,5 @@
     <string name="send">Enviar</string>
     <string name="cancel">Cancelar</string>
     <string name="sucess_rating">Avaliação enviada com sucesso!</string>
+    <string name="no_results">Nenhum comentário encontrado</string>
 </resources>

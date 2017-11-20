@@ -22,5 +22,6 @@ interface IAppActivityListener {
     fun dismissLoading()
     fun displayArrowBack()
     fun hideArrowBack()
+    fun inflateView(layout: Int, viewGroup: View): View
 
 }

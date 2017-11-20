@@ -35,6 +35,7 @@ class CommentsFragment : AppFragment<ICommentsView, CommentsPresenter>(), IComme
 
     override fun fillComments(comments: List<Comment>) {
         commentAdapter = CommentAdapter(comments)
+        commentAdapter!!.emptyView = appActivityListener!!.inflateView(R.layout.empt_view, comments_recycler)
         comments_recycler.adapter = commentAdapter
     }
 

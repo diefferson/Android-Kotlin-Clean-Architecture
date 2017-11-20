@@ -28,24 +28,28 @@
 
         <TextView
             android:id="@+id/hotel_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingEnd="8dp"
             android:paddingTop="8dp"
             android:paddingBottom="4dp"
             android:layout_marginStart="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="Nome Hotel"
             app:layout_constraintStart_toEndOf="@id/hotel_image"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/price_section"/>
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/distance_section"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintStart_toEndOf="@id/hotel_image"
-            app:layout_constraintTop_toBottomOf="@id/hotel_name">
+            app:layout_constraintTop_toBottomOf="@id/hotel_name"
+            app:layout_constraintEnd_toStartOf="@id/price_section">
 
             <ImageView
                 android:id="@+id/ic_distance"
@@ -58,14 +62,16 @@
 
             <TextView
                 android:id="@+id/distance"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="1,5 km distante"
+                android:ellipsize="end"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
+                android:maxLines="1"
                 app:layout_constraintStart_toEndOf="@id/ic_distance"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
         </android.support.constraint.ConstraintLayout>
 
