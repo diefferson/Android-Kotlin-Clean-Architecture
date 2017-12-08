@@ -30,19 +30,19 @@ class MapFragment : AppFragment<IMapView, MapPresenter>(), IMapView {
     override val fragmentLayout: Int
         get() = R.layout.fragment_map
 
-    override fun createPresenter()= MapPresenter(HomePet.instance!!.hotelRepository!!)
+    override fun createPresenter()= MapPresenter(HomePet.instance!!.hotelRepository)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val codeHotel = arguments.getInt("codeHotel")
+        val codeHotel = arguments!!.getInt("codeHotel")
 
         mapView.onCreate(savedInstanceState)
 
         mapView.onResume()
 
         try {
-            MapsInitializer.initialize(activity.applicationContext)
+            MapsInitializer.initialize(activity?.applicationContext)
         } catch (e: Exception) {
             e.printStackTrace()
         }

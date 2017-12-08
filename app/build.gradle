@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: "kotlin-kapt"
+
 
 //Version information
 def versionMajor = 0
@@ -30,30 +32,24 @@ android {
             buildConfigField 'boolean', 'HTTP_LOG_ENABLED', "false"
             buildConfigField 'String', 'HOST', '"http://meucartaotransporte.com.br/homepet"'
             buildConfigField 'String', 'clientSecret', '"Basic QVNmOGVlMFNhOGFuZjpsYWtzZGZhc2Fjbzg5Mg=="'
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
-    }
-    buildToolsVersion '26.0.2'
 }
 
 dependencies {
 
-    implementation 'org.jetbrains.anko:anko-commons:0.10.1'
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.google.firebase:firebase-storage:11.0.4'
-    implementation 'com.google.firebase:firebase-auth:11.0.4'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation 'com.google.android.gms:play-services-maps:11.0.4'
-    implementation 'com.google.maps.android:android-maps-utils:0.4.4'
+    testImplementation "junit:junit:$rootProject.junitVersion"
+    androidTestImplementation "com.android.support.test:runner:$rootProject.testRunnerVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion"
+
+    //Google
+    implementation "com.google.firebase:firebase-storage:$rootProject.firebaseVersion"
+    implementation "com.google.android.gms:play-services-maps:$rootProject.playServicesVersion"
+    implementation "com.google.maps.android:android-maps-utils:$rootProject.mapsUtilsVersion"
 
     // Android Support Library
     implementation "com.android.support:appcompat-v7:$rootProject.supportVersion"
@@ -63,16 +59,6 @@ dependencies {
     implementation "com.android.support:support-v4:$rootProject.supportVersion"
     implementation "com.android.support.constraint:constraint-layout:$rootProject.constraintLayoutVersion"
     implementation "com.android.support:support-vector-drawable:$rootProject.constraintLayoutVersion"
-
-    //BaseRecyclerViewAdapterHelper
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.28'
-
-    // Mosby Mvp
-    implementation 'com.hannesdorfmann.mosby3:mvp:3.0.4' // Plain MVP
-
-    // Fresco
-    implementation 'com.facebook.fresco:fresco:1.4.0'
-    implementation 'com.romandanylyk:pageindicatorview:0.2.0'
 
     // Retrofit & OkHttp
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
@@ -84,16 +70,23 @@ dependencies {
     // Rx
     implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
-    implementation "com.github.VictorAlbertos.RxCache:runtime:$rootProject.rxCacheVersion"
-    annotationProcessor "com.github.VictorAlbertos.RxCache:compiler:$rootProject.rxCacheVersion"
     implementation "com.github.VictorAlbertos.Jolyglot:gson:$rootProject.rxCacheGsonVersion"
+    implementation "com.github.VictorAlbertos.RxCache:runtime:$rootProject.rxCacheVersion"
+    kapt "com.github.VictorAlbertos.RxCache:compiler:$rootProject.rxCacheVersion"
 
-    implementation 'com.github.Snowmanlabs:imagepickercropper-android:1.2'
+    //BaseRecyclerViewAdapterHelper
+    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rootProject.baseRecyclerVersion"
+
+    // Mosby Mvp
+    implementation "com.hannesdorfmann.mosby3:mvp:$rootProject.mosbyVersion"
+
+    // Images Utils
+    implementation "com.romandanylyk:pageindicatorview:$rootProject.pageIndicatorVersion"
+    implementation "de.hdodenhof:circleimageview:$rootProject.circleImageViewVersion"
+    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
+    implementation "com.github.Snowmanlabs:imagepickercropper-android:$rootProject.imagePickerCropperVersion"
 
 }
 
-repositories {
-    mavenCentral()
-}
-
-apply plugin: 'com.google.gms.google-services'
+apply plugin: "com.google.gms.google-services"

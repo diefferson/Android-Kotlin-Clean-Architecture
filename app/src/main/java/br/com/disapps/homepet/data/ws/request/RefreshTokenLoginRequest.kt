@@ -3,12 +3,14 @@ package br.com.disapps.homepet.data.ws.request
 import com.google.gson.annotations.SerializedName
 
 /**
- * Created by diefferson.santos on 31/08/17.
- */
+* Created by diefferson.santos on 31/08/17.
+*/
 
-class RefreshTokenLoginRequest{
+class RefreshTokenLoginRequest(
         @SerializedName("grant_type")
-        var grantType: String? = null
+        var grantType: String = "",
         @SerializedName("refresh_token")
-        var refreshToken: String? = null
-}
+        var refreshToken: String = ""
+)
+
+

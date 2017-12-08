@@ -22,32 +22,25 @@
                 android:layout_marginLeft="@dimen/medium_horizontal_margin"
                 android:layout_marginRight="@dimen/medium_horizontal_margin">
 
-                <com.facebook.drawee.view.SimpleDraweeView
+                <ImageView
                     android:id="@+id/dv_profile_avatar"
                     android:layout_width="@dimen/profile_avatar_size"
                     android:layout_height="@dimen/profile_avatar_size"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/profile_avatar_margin_top"
-                    app:actualImageScaleType="fitCenter"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:roundAsCircle="true"
                     app:layout_constraintEnd_toStartOf="@+id/guideline"
-                    android:layout_marginEnd="8dp"
-                    app:placeholderImage="@drawable/ic_placeholder_photo"
-                    app:placeholderImageScaleType="centerCrop"/>
+                    android:layout_marginEnd="8dp"/>
 
-                <com.facebook.drawee.view.SimpleDraweeView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/dv_camera_icon"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:src="@color/colorPrimary"
                     android:layout_marginStart="30dp"
-                    app:backgroundImage="@color/colorPrimary"
                     app:layout_constraintStart_toStartOf="@+id/guideline"
-                    app:layout_constraintTop_toTopOf="@+id/dv_profile_avatar"
-
-                    app:roundAsCircle="true" />
+                    app:layout_constraintTop_toTopOf="@+id/dv_profile_avatar" />
 
                 <ImageView
                     android:layout_width="0dp"
@@ -187,14 +180,19 @@
             </android.support.constraint.ConstraintLayout>
         </android.support.v4.widget.NestedScrollView>
 
+
+
         <Button
             android:id="@+id/bt_save"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/buttom_height"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/medium_horizontal_margin"
             android:layout_marginHorizontal="@dimen/medium_horizontal_margin"
-            android:text="@string/save" />
+            android:text="@string/save"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="@dimen/buttom_margin"/>
 
         <include
             android:id="@+id/loading_view"

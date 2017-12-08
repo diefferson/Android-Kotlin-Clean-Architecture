@@ -3,14 +3,11 @@ package br.com.disapps.homepet.ui.details
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter
 
 import br.com.disapps.homepet.data.cache.HotelRepository
-import br.com.disapps.homepet.data.model.Hotel
 import br.com.disapps.homepet.data.prefs.Preferences
 import br.com.disapps.homepet.data.ws.RestApi
-import br.com.disapps.homepet.data.ws.request.IncludeCommentRequest
 import br.com.disapps.homepet.data.ws.request.IncludeRatingRequest
-import br.com.disapps.homepet.data.ws.response.HotelResponse
+import br.com.disapps.homepet.data.ws.response.ApiSimpleResponse
 import br.com.disapps.homepet.data.ws.response.IncludeResponse
-import br.com.disapps.homepet.ui.hotel.HotelPresenter
 import br.com.disapps.homepet.util.rx.IErrorHandlerHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -36,8 +33,8 @@ class HotelDetailsPresenter(private val mHotelRepository: HotelRepository,
         disposables.add(mHotelRepository.getHotel(true, codeHotel)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableObserver<HotelResponse>() {
-                    override fun onNext(response: HotelResponse) {
+                .subscribeWith(object : DisposableObserver<ApiSimpleResponse.HotelResponse>() {
+                    override fun onNext(response: ApiSimpleResponse.HotelResponse) {
 
                         val hotel = response.content
 

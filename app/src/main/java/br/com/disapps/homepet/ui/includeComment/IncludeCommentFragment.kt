@@ -7,10 +7,7 @@ import android.view.*
 import br.com.disapps.homepet.R
 import br.com.disapps.homepet.app.HomePet
 import br.com.disapps.homepet.ui.common.AppFragment
-import br.com.disapps.homepet.ui.details.HotelDetailsFragment
 import kotlinx.android.synthetic.main.fragment_include_comment.*
-import kotlinx.android.synthetic.main.fragment_login.*
-import org.jetbrains.anko.toast
 
 /**
  * Created by diefferson on 04/10/17.
@@ -25,11 +22,11 @@ class IncludeCommentFragment: AppFragment<IIncludeCommentView, IncludeCommentPre
     override val fragmentLayout: Int
         get() = R.layout.fragment_include_comment
 
-    override fun createPresenter() =  IncludeCommentPresenter(HomePet.instance!!.restApi!!, HomePet.instance!!.preferences!!)
+    override fun createPresenter() =  IncludeCommentPresenter(HomePet.instance!!.restApi, HomePet.instance!!.preferences)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-         codeHotel = arguments.getInt("codeHotel")
+         codeHotel = arguments!!.getInt("codeHotel")
         setHasOptionsMenu(true)
     }
 
@@ -60,7 +57,7 @@ class IncludeCommentFragment: AppFragment<IIncludeCommentView, IncludeCommentPre
 
     override fun fillSuccesInclude() {
         Snackbar.make(commentText,getString(R.string.sucess_comment), Snackbar.LENGTH_SHORT).show()
-        this@IncludeCommentFragment.activity.onBackPressed()
+        this@IncludeCommentFragment.activity?.onBackPressed()
     }
 
     override fun fillErrorInclude(message: String) {

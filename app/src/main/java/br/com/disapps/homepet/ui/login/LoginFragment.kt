@@ -23,9 +23,9 @@ class LoginFragment : AppFragment<ILoginView, LoginPresenter>(), ILoginView {
     override val fragmentLayout: Int
         get() = R.layout.fragment_login
 
-    override fun createPresenter() = LoginPresenter(HomePet.instance!!.restApi!!, HomePet.instance!!.preferences!!)
+    override fun createPresenter() = LoginPresenter(HomePet.instance!!.restApi, HomePet.instance!!.preferences)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         appActivityListener!!.displayArrowBack()

@@ -2,54 +2,31 @@ package br.com.disapps.homepet.app
 
 import android.app.Application
 
-import com.facebook.drawee.backends.pipeline.Fresco
-
-import br.com.disapps.homepet.data.cache.HomePetRepository
 import br.com.disapps.homepet.data.cache.HotelRepository
 import br.com.disapps.homepet.data.prefs.Preferences
 import br.com.disapps.homepet.data.ws.RestApi
 import br.com.disapps.homepet.data.ws.RestClient
 
 /**
- * Created by diefferson.santos on 23/08/17.
- */
+* Created by diefferson.santos on 23/08/17.
+*/
 class HomePet : Application() {
 
-    var restApi: RestApi? = null
-        private set
+    val restApi: RestApi by lazy {
+        RestClient().api
+    }
 
-    var preferences: Preferences? = null
-        private set
+    val preferences: Preferences by lazy {
+        Preferences(this)
+    }
 
-    var homePetRepository: HomePetRepository? = null
-        private set
-        get(){
-            if(field == null) {
-                field = HomePetRepository(this, preferences as Preferences, cacheDir, restApi as RestApi)
-            }
-            return field;
-        }
-
-    var hotelRepository: HotelRepository? = null
-        private set
-        get(){
-            if(field == null) {
-                field = HotelRepository(this, preferences as Preferences, cacheDir, restApi as RestApi)
-            }
-            return field;
-        }
+    val hotelRepository: HotelRepository by lazy {
+        HotelRepository( preferences , cacheDir, restApi)
+    }
 
     override fun onCreate() {
         super.onCreate()
-
         instance = this
-
-        restApi = RestClient().api
-
-        Fresco.initialize(this)
-
-        preferences = Preferences(instance!!)
-
     }
 
     companion object {

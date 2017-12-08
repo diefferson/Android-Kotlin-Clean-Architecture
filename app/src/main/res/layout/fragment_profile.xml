@@ -12,15 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <ImageView
             android:layout_width="@dimen/profile_avatar_size"
             android:layout_height="@dimen/profile_avatar_size"
             android:layout_marginTop="@dimen/profile_avatar_margin_top"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:roundAsCircle="true"
-            app:actualImageScaleType="fitCenter"
             android:id="@+id/dv_profile_avatar" />
 
         <TextView

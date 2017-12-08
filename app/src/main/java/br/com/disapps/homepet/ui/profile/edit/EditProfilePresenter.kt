@@ -1,13 +1,10 @@
 package br.com.disapps.homepet.ui.profile.edit
 
 import android.net.Uri
-import android.util.Log
-import android.widget.Toast
-import br.com.disapps.homepet.BuildConfig
 import br.com.disapps.homepet.data.model.User
 import br.com.disapps.homepet.data.prefs.Preferences
 import br.com.disapps.homepet.data.ws.RestApi
-import br.com.disapps.homepet.data.ws.response.UserResponse
+import br.com.disapps.homepet.data.ws.response.ApiSimpleResponse
 import br.com.disapps.homepet.util.rx.IErrorHandlerHelper
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -16,12 +13,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.firebase.storage.UploadTask
-import com.google.android.gms.tasks.OnSuccessListener
-import kotlinx.android.synthetic.main.fragment_edit_profile.*
-import java.io.File
-import java.util.*
 
 
 /**
@@ -70,9 +61,9 @@ class EditProfilePresenter(private val restApi: RestApi, private val preferences
         restApi.patchUser(preferences.authTokenWithPrefix, user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableObserver<UserResponse>() {
+                .subscribeWith(object : DisposableObserver<ApiSimpleResponse.UserResponse>() {
 
-                    override fun onNext(response: UserResponse) {
+                    override fun onNext(response: ApiSimpleResponse.UserResponse) {
                         preferences.saveUser(response.content!!)
                         if (isViewAttached) {
                             view.dismissLoading()

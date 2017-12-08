@@ -11,6 +11,8 @@ import br.com.disapps.homepet.data.model.User
 import br.com.disapps.homepet.ui.common.AppFragment
 import br.com.disapps.homepet.ui.login.LoginFragment
 import br.com.disapps.homepet.ui.profile.edit.EditProfileFragment
+import br.com.disapps.homepet.util.extensions.setCircleImageURI
+import br.com.disapps.homepet.util.extensions.setImageURICrop
 
 import kotlinx.android.synthetic.main.fragment_profile.*
 
@@ -21,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 class ProfileFragment : AppFragment<IProfileView, ProfilePresenter>(), IProfileView {
 
     private val mUser: User by lazy {
-        HomePet.instance!!.preferences!!.getUser()
+        HomePet.instance!!.preferences.getUser()
     }
 
     override val fragmentTag: String
@@ -30,9 +32,9 @@ class ProfileFragment : AppFragment<IProfileView, ProfilePresenter>(), IProfileV
     override val fragmentLayout: Int
         get() = R.layout.fragment_profile
 
-    override fun createPresenter()= ProfilePresenter(HomePet.instance!!.preferences!!)
+    override fun createPresenter()= ProfilePresenter(HomePet.instance!!.preferences)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
@@ -46,7 +48,7 @@ class ProfileFragment : AppFragment<IProfileView, ProfilePresenter>(), IProfileV
     override fun onResume() {
         super.onResume()
 
-        fillUser(HomePet.instance!!.preferences!!.getUser())
+        fillUser(HomePet.instance!!.preferences.getUser())
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -72,8 +74,8 @@ class ProfileFragment : AppFragment<IProfileView, ProfilePresenter>(), IProfileV
     }
 
     private fun fillUser(user : User){
-        if(user.avatar!= null){
-            dv_profile_avatar.setImageURI(user.avatar)
+        if(user.avatar.isNotEmpty()){
+            dv_profile_avatar.setCircleImageURI(user.avatar)
         }
         profile_name_tv.text = user.name
         profile_email_tv.text = user.email

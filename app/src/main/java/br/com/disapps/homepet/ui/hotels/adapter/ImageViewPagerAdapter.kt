@@ -6,10 +6,10 @@ import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-import com.facebook.drawee.view.SimpleDraweeView
+import android.widget.ImageView
 
 import br.com.disapps.homepet.R
+import br.com.disapps.homepet.util.extensions.setImageURICrop
 
 /**
  * Created by diefferson.santos on 04/09/17.
@@ -33,8 +33,8 @@ class ImageViewPagerAdapter(internal var mContext: Context, internal var images:
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val itemView = mLayoutInflater.inflate(R.layout.image_slide_item, container, false)
 
-        val imageView = itemView.findViewById<View>(R.id.image) as SimpleDraweeView
-        imageView.setImageURI(images[position])
+        val imageView = itemView.findViewById<View>(R.id.image) as ImageView
+        imageView.setImageURICrop(images[position])
 
         container.addView(itemView)
 

@@ -114,7 +114,7 @@ class RestClient {
 
                 val request =  RefreshTokenLoginRequest()
                 request.grantType = "refresh_token"
-                request.refreshToken = HomePet.instance?.preferences?.auth?.refreshToken
+                request.refreshToken = HomePet.instance?.preferences?.auth?.refreshToken!!
 
                 val call = api.refreshToken(BuildConfig.clientSecret, request )
                 val refresh = call.execute()

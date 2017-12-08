@@ -21,14 +21,14 @@ class CommentsFragment : AppFragment<ICommentsView, CommentsPresenter>(), IComme
 
     override val fragmentLayout = R.layout.fragment_comments
 
-    override fun createPresenter() = CommentsPresenter(HomePet.instance!!.hotelRepository!!)
+    override fun createPresenter() = CommentsPresenter(HomePet.instance!!.hotelRepository)
     
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupLoadingFragment(loading_view)
 
-        val codeHotel = arguments.getInt("codeHotel")
+        val codeHotel = arguments!!.getInt("codeHotel")
 
         getPresenter().loadComments(codeHotel)
     }

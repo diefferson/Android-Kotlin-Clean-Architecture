@@ -31,19 +31,19 @@ class HotelDetailsFragment : AppFragment<IHotelDetailsView, HotelDetailsPresente
     var codeHotel : Int = 0
 
 
-    override fun createPresenter() = HotelDetailsPresenter(HomePet.instance!!.hotelRepository!!, HomePet.instance!!.restApi!!, HomePet.instance!!.preferences!!)
+    override fun createPresenter() = HotelDetailsPresenter(HomePet.instance!!.hotelRepository, HomePet.instance!!.restApi, HomePet.instance!!.preferences)
 
     override fun onResume() {
         super.onResume()
         getPresenter().loadHotel(codeHotel)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupLoadingFragment(loading_view)
 
-        codeHotel = arguments.getInt("codeHotel")
+        codeHotel = arguments!!.getInt("codeHotel")
 
         comment_bt.setOnClickListener{  appActivityListener!!.replaceAndBackStackFragment(IncludeCommentFragment.newInstance(codeHotel)) }
         rating_bt.setOnClickListener{ showRatingDialog()}
@@ -51,7 +51,7 @@ class HotelDetailsFragment : AppFragment<IHotelDetailsView, HotelDetailsPresente
     }
 
     private fun validateLogin() {
-        if (!HomePet.instance!!.preferences!!.isLogged) {
+        if (!HomePet.instance!!.preferences.isLogged) {
             rating_bt.visibility = View.INVISIBLE
             comment_bt.visibility = View.INVISIBLE
         }
@@ -77,9 +77,9 @@ class HotelDetailsFragment : AppFragment<IHotelDetailsView, HotelDetailsPresente
         val cancelButtom = ratingDialog.findViewById<Button>(R.id.cancel_rating_bt)
         val ratingBar = ratingDialog.findViewById<RatingBar>(R.id.ratingBar)
 
-        cancelButtom.setOnClickListener { v: View -> ratingDialog.dismiss() }
+        cancelButtom.setOnClickListener { _: View -> ratingDialog.dismiss() }
 
-        confirmButtom.setOnClickListener { v: View ->
+        confirmButtom.setOnClickListener { _: View ->
             if(ratingBar.rating >0){
                 getPresenter().sendRating(ratingBar.rating, codeHotel)
                 ratingDialog.dismiss()

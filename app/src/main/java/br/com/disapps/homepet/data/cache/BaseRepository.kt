@@ -8,8 +8,8 @@ import io.rx_cache2.internal.RxCache
 import io.victoralbertos.jolyglot.GsonSpeaker
 
 /**
- * Created by diefferson.santos on 23/08/17.
- */
+* Created by diefferson.santos on 23/08/17.
+*/
 
 abstract class BaseRepository(protected val preferences: Preferences, cacheDir: File, protected val restApi: RestApi) {
 

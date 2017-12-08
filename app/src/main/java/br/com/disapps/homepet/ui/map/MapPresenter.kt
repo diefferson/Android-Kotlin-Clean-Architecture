@@ -1,7 +1,7 @@
 package br.com.disapps.homepet.ui.map
 
 import br.com.disapps.homepet.data.cache.HotelRepository
-import br.com.disapps.homepet.data.ws.response.CoordinateResponse
+import br.com.disapps.homepet.data.ws.response.ApiSimpleResponse
 import br.com.disapps.homepet.util.rx.IErrorHandlerHelper
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -24,8 +24,8 @@ class MapPresenter(private val mHotelRepository: HotelRepository) : MvpBasePrese
         disposables.add(mHotelRepository.getCoordinates(true, codeHotel)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableObserver<CoordinateResponse>() {
-                    override fun onNext(response: CoordinateResponse) {
+                .subscribeWith(object : DisposableObserver<ApiSimpleResponse.CoordinateResponse>() {
+                    override fun onNext(response: ApiSimpleResponse.CoordinateResponse) {
 
                         val coordinates = response.content
 

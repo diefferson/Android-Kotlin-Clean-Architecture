@@ -13,8 +13,8 @@ import br.com.disapps.homepet.ui.custom.CustomViewHolder
 class CommentAdapter(data: List<Comment>?) : BaseQuickAdapter<Comment, CustomViewHolder>(R.layout.comment_item, data) {
 
     override fun convert(helper: CustomViewHolder, item: Comment) {
-        if(item.avatarUser != null){
-            helper.setImageURI(R.id.user_avatar, item.avatarUser)
+        if(item.avatarUser.isNotEmpty()){
+            helper.setCircleImageURI(R.id.user_avatar, item.avatarUser)
         }
         helper.setText(R.id.user_name, item.nameUser)
         helper.setText(R.id.comment, item.comment)

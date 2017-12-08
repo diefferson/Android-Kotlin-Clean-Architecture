@@ -4,9 +4,11 @@ import android.content.res.ColorStateList
 import android.support.annotation.IdRes
 import android.support.v4.view.ViewCompat
 import android.view.View
+import android.widget.ImageView
+import br.com.disapps.homepet.util.extensions.setCircleImageURI
+import br.com.disapps.homepet.util.extensions.setImageURICrop
 
 import com.chad.library.adapter.base.BaseViewHolder
-import com.facebook.drawee.view.SimpleDraweeView
 
 /**
  * Created by diefferson.santos on 23/08/17.
@@ -14,8 +16,14 @@ import com.facebook.drawee.view.SimpleDraweeView
 class CustomViewHolder(view: View) : BaseViewHolder(view) {
 
     fun setImageURI(@IdRes viewId: Int, value: String): BaseViewHolder {
-        val view = getView<SimpleDraweeView>(viewId)
-        view.setImageURI(value)
+        val view = getView<ImageView>(viewId)
+        view.setImageURICrop(value)
+        return this
+    }
+
+    fun setCircleImageURI(@IdRes viewId: Int, value: String): BaseViewHolder {
+        val view = getView<ImageView>(viewId)
+        view.setCircleImageURI(value)
         return this
     }
 

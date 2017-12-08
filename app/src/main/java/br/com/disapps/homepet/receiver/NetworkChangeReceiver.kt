@@ -22,7 +22,6 @@ class NetworkChangeReceiver : BroadcastReceiver() {
     }
 
     companion object {
-
         val NOTIFY_NETWORK_CHANGE = "android.net.conn.CONNECTIVITY_CHANGE"
         val EXTRA_IS_CONNECTED = "EXTRA_IS_CONNECTED"
     }

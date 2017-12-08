@@ -42,9 +42,9 @@ class HotelsFragment : AppFragment<IHotelsView, HotelsPresenter>(), IHotelsView,
     override val fragmentLayout: Int
         get() = R.layout.fragment_hotels
 
-    override fun createPresenter() = HotelsPresenter(HomePet.instance!!.hotelRepository!!)
+    override fun createPresenter() = HotelsPresenter(HomePet.instance!!.hotelRepository)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
@@ -116,7 +116,7 @@ class HotelsFragment : AppFragment<IHotelsView, HotelsPresenter>(), IHotelsView,
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item!!.itemId){
             R.id.profile-> {
-                if(HomePet.instance!!.preferences!!.isLogged){
+                if(HomePet.instance!!.preferences.isLogged){
                     appActivityListener!!.replaceAndBackStackFragment(ProfileFragment.newInstance())
                 }else{
                     appActivityListener!!.replaceAndBackStackFragment(LoginFragment.newInstance())

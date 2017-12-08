@@ -9,8 +9,8 @@ import br.com.disapps.homepet.data.ws.RestClient
 import java.util.*
 
 /**
- * Created by diefferson.santos on 23/08/17.
- */
+* Created by diefferson.santos on 23/08/17.
+*/
 class Preferences(context: Context) {
 
     private val mPreferences: SharedPreferences
@@ -44,12 +44,12 @@ class Preferences(context: Context) {
 
     val auth: Auth
         get() {
-            val auth = Auth(    mPreferences.getString(AUTH_KEY, ""),
-                                mPreferences.getString(AUTH_KEY_TYPE, ""),
-                                mPreferences.getString(AUTH_EXPIRES_AT_KEY, ""),
-                                mPreferences.getString(AUTH_RENEW, "")
-                            )
-            return auth
+            return Auth(
+                    accessToken = mPreferences.getString(AUTH_KEY, ""),
+                    tokenType = mPreferences.getString(AUTH_KEY_TYPE, ""),
+                    expiresIn = mPreferences.getString(AUTH_EXPIRES_AT_KEY, ""),
+                    refreshToken = mPreferences.getString(AUTH_RENEW, "")
+            )
         }
 
     val authTokenWithPrefix: String
@@ -74,7 +74,7 @@ class Preferences(context: Context) {
     fun saveUser(user: User){
 
         mPreferences.edit()
-                .putInt(USER_CODE_KEY, user.code!!)
+                .putInt(USER_CODE_KEY, user.code)
                 .putString(USER_NAME_KEY, user.name)
                 .putString(USER_EMAIL_KEY, user.email)
                 .putString(USER_ADDRESS_KEY, user.address)
@@ -82,7 +82,7 @@ class Preferences(context: Context) {
                 .putString(USER_AVATAR_KEY, user.avatar)
                 .putString(USER_SEX_KEY, user.sex)
                 .putLong(USER_BIRTHDAY_KEY, user.birthday!!.time)
-                .putInt(USER_CEP_KEY, user.cep!!)
+                .putInt(USER_CEP_KEY, user.cep)
                 .putString(USER_CITY_KEY, user.city)
                 .putString(USER_UF_KEY, user.uf)
                 .putString(USER_STATUS_KEY, user.status)
@@ -91,22 +91,19 @@ class Preferences(context: Context) {
 
     fun getUser() : User{
 
-        var user = User()
-
-        user.code = mPreferences.getInt(USER_CODE_KEY, 0)
-        user.name = mPreferences.getString(USER_NAME_KEY, "")
-        user.email = mPreferences.getString(USER_EMAIL_KEY, "")
-        user.address = mPreferences.getString(USER_ADDRESS_KEY, "")
-        user.phone = mPreferences.getString(USER_PHONE_KEY, "")
-        user.avatar = mPreferences.getString(USER_AVATAR_KEY, "")
-        user.sex = mPreferences.getString(USER_SEX_KEY, "")
-        user.birthday = Date(mPreferences.getLong(USER_BIRTHDAY_KEY, 0))
-        user.cep = mPreferences.getInt(USER_CEP_KEY, 0)
-        user.city = mPreferences.getString(USER_CITY_KEY, "")
-        user.uf = mPreferences.getString(USER_UF_KEY, "")
-        user.status = mPreferences.getString(USER_STATUS_KEY, "")
-
-        return  user
+        return User(
+                code = mPreferences.getInt(USER_CODE_KEY, 0),
+                name = mPreferences.getString(USER_NAME_KEY, ""),
+                email = mPreferences.getString(USER_EMAIL_KEY, ""),
+                address = mPreferences.getString(USER_ADDRESS_KEY, ""),
+                phone = mPreferences.getString(USER_PHONE_KEY, ""),
+                avatar = mPreferences.getString(USER_AVATAR_KEY, ""),
+                sex = mPreferences.getString(USER_SEX_KEY, ""),
+                birthday = Date(mPreferences.getLong(USER_BIRTHDAY_KEY, 0)),
+                cep = mPreferences.getInt(USER_CEP_KEY, 0),
+                city = mPreferences.getString(USER_CITY_KEY, ""),
+                uf = mPreferences.getString(USER_UF_KEY, ""),
+                status = mPreferences.getString(USER_STATUS_KEY, "")
+        )
     }
-
 }

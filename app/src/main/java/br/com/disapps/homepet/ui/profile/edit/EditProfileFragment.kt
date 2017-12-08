@@ -5,27 +5,15 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import br.com.disapps.homepet.R
 import br.com.disapps.homepet.app.HomePet
 import br.com.disapps.homepet.data.model.User
 import br.com.disapps.homepet.ui.common.AppFragment
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.storage.FirebaseStorage
+import br.com.disapps.homepet.util.extensions.setCircleImageURI
+import br.com.disapps.homepet.util.extensions.setImageURICrop
 import com.snowmanlabs.imagepickercropper.PickerActivity
 import kotlinx.android.synthetic.main.fragment_edit_profile.*
-import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.UploadTask
-import java.util.*
-import com.google.firebase.auth.AuthResult
-
-
-
 
 /**
  * Created by diefferson on 06/11/2017.
@@ -35,7 +23,7 @@ class EditProfileFragment : AppFragment<IEditProfileView, EditProfilePresenter>(
     private var mImageUri: Uri? = null
 
     private val mUser: User by lazy {
-        HomePet.instance!!.preferences!!.getUser()
+        HomePet.instance!!.preferences.getUser()
     }
 
     companion object {
@@ -49,9 +37,9 @@ class EditProfileFragment : AppFragment<IEditProfileView, EditProfilePresenter>(
     override val fragmentLayout: Int
         get() = R.layout.fragment_edit_profile
 
-    override fun createPresenter() = EditProfilePresenter(HomePet.instance!!.restApi!!, HomePet.instance!!.preferences!!)
+    override fun createPresenter() = EditProfilePresenter(HomePet.instance!!.restApi, HomePet.instance!!.preferences)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
@@ -69,8 +57,8 @@ class EditProfileFragment : AppFragment<IEditProfileView, EditProfilePresenter>(
     }
 
     private fun fillUser(user : User){
-        if(user.avatar != null){
-            dv_profile_avatar.setImageURI(user.avatar)
+        if(user.avatar.isNotEmpty()){
+            dv_profile_avatar.setCircleImageURI(user.avatar)
         }
         et_name.setText(user.name)
         et_email.setText(user.email)
@@ -99,7 +87,7 @@ class EditProfileFragment : AppFragment<IEditProfileView, EditProfilePresenter>(
                 if (data.extras!!.containsKey("image")) {
                     mImageUri = data.extras!!.get("image") as Uri
                     mUser.imageUri = mImageUri
-                    dv_profile_avatar.setImageURI(mImageUri.toString())
+                    dv_profile_avatar.setCircleImageURI(mImageUri.toString())
                 }
             }
         }
@@ -122,8 +110,7 @@ class EditProfileFragment : AppFragment<IEditProfileView, EditProfilePresenter>(
     }
 
     override fun patchUserSuccessfull() {
-        activity.onBackPressed()
+        activity?.onBackPressed()
     }
-
 
 }

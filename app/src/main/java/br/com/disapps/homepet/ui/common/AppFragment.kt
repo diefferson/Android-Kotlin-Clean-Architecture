@@ -42,14 +42,14 @@ abstract class AppFragment<V : AppView, P : MvpPresenter<V>> : MvpFragment<V, P>
         }
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(fragmentLayout, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(fragmentLayout, container, false)
     }
-
+    
     override fun onDestroyView() {
         super.onDestroyView()
     }

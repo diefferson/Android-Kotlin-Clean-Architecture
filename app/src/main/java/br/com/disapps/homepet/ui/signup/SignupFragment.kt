@@ -23,7 +23,7 @@ class SignupFragment : AppFragment<ISignUpView, SignupPresenter>(), ISignUpView 
 
     override fun createPresenter() = SignupPresenter(HomePet.instance!!.restApi!!, HomePet.instance!!.preferences!!)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         appActivityListener!!.setTitle("Cadastrar")

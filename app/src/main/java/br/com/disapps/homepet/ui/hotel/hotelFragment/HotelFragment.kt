@@ -23,12 +23,12 @@ class HotelFragment : AppFragment<IHotelView, HotelPresenter>(), IHotelView {
 
     override fun createPresenter() = HotelPresenter()
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val codeHotel = arguments.getInt("codeHotel")
+        val codeHotel = arguments!!.getInt("codeHotel")
 
-        view_pager.adapter = HotelViewPagerAdapter(childFragmentManager, context, codeHotel)
+        view_pager.adapter = HotelViewPagerAdapter(childFragmentManager, context!!, codeHotel)
         tabs!!.setupWithViewPager(view_pager)
     }
 

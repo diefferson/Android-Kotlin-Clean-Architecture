@@ -3,14 +3,10 @@ package br.com.disapps.homepet.ui.login
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter
 
 import br.com.disapps.homepet.BuildConfig
-import br.com.disapps.homepet.data.model.Auth
 import br.com.disapps.homepet.data.prefs.Preferences
 import br.com.disapps.homepet.data.ws.RestApi
 import br.com.disapps.homepet.data.ws.request.PasswordLoginRequest
-import br.com.disapps.homepet.data.ws.response.ApiListResponse
 import br.com.disapps.homepet.data.ws.response.ApiSimpleResponse
-import br.com.disapps.homepet.data.ws.response.AuthResponse
-import br.com.disapps.homepet.data.ws.response.UserResponse
 import br.com.disapps.homepet.util.rx.IErrorHandlerHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -40,9 +36,9 @@ class LoginPresenter(private val restApi: RestApi, private val preferences: Pref
                 restApi.authLogin(BuildConfig.clientSecret, request)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(object : DisposableObserver<AuthResponse>() {
+                        .subscribeWith(object : DisposableObserver<ApiSimpleResponse.AuthResponse>() {
 
-                            override fun onNext(response: AuthResponse) {
+                            override fun onNext(response: ApiSimpleResponse.AuthResponse) {
                                 preferences.saveAuth(response.content!!)
                                 getUser()
                             }
@@ -69,9 +65,9 @@ class LoginPresenter(private val restApi: RestApi, private val preferences: Pref
             restApi.getUser(preferences.authTokenWithPrefix)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object : DisposableObserver<UserResponse>() {
+            .subscribeWith(object : DisposableObserver<ApiSimpleResponse.UserResponse>() {
 
-                override fun onNext(response: UserResponse) {
+                override fun onNext(response: ApiSimpleResponse.UserResponse) {
                     preferences.saveUser(response.content!!)
 
                     if (isViewAttached) {

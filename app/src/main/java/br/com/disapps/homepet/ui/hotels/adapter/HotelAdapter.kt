@@ -26,7 +26,7 @@ class HotelAdapter(data: List<Hotel>?) : BaseQuickAdapter<Hotel, CustomViewHolde
     override fun convert(helper: CustomViewHolder, item: Hotel) {
         helper.setText(R.id.hotel_name, item.name)
         if(item.coverImage!= null){
-            helper.setImageURI(R.id.hotel_image, item.coverImage!!)
+            helper.setImageURI(R.id.hotel_image, item.coverImage)
         }
         helper.setRating(R.id.rating, item.rating)
         helper.setText(R.id.ratings, item.ratingsNumber.toString())

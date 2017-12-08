@@ -16,8 +16,9 @@ import br.com.disapps.homepet.ui.hotel.hotelFragment.HotelFragment
 import br.com.disapps.homepet.ui.hotels.adapter.ImageViewPagerAdapter
 import br.com.disapps.homepet.ui.imageViewer.ImageViewerActivity
 import br.com.disapps.homepet.ui.profile.ProfileFragment
+import br.com.disapps.homepet.util.extensions.startActivity
 import kotlinx.android.synthetic.main.activity_hotel.*
-import org.jetbrains.anko.startActivity
+
 
 /**
  * Created by diefferson.santos on 31/08/17.
@@ -52,7 +53,12 @@ class HotelActivity : AppActivity(), AppBarLayout.OnOffsetChangedListener, IHote
                 onBackPressed()
                 return true
             }
-            R.id.full_screem->{startActivity<ImageViewerActivity>("hotel" to hotel!!) }
+
+            R.id.full_screem->{
+                val extras  = Bundle()
+                extras.putSerializable("hotel", hotel)
+                startActivity(ImageViewerActivity::class.java, extras)
+            }
         }
 
         return super.onOptionsItemSelected(item)
@@ -62,7 +68,7 @@ class HotelActivity : AppActivity(), AppBarLayout.OnOffsetChangedListener, IHote
 
         hotel = h
 
-        setTitle(hotel!!.name!!)
+        setTitle(hotel!!.name)
 
         if(hotel!!.images != null && !hotel!!.images!!.isEmpty()){
             image_slide!!.adapter = ImageViewPagerAdapter(this, hotel!!.images!!)
@@ -70,7 +76,11 @@ class HotelActivity : AppActivity(), AppBarLayout.OnOffsetChangedListener, IHote
             pageIndicatorView!!.visibility = View.VISIBLE
             image_slide.visibility = View.VISIBLE
 
-            collapsing.setOnClickListener {  startActivity<ImageViewerActivity>("hotel" to hotel!!) }
+            collapsing.setOnClickListener {
+                val extras  = Bundle()
+                extras.putSerializable("hotel", hotel)
+                startActivity(ImageViewerActivity::class.java, extras)
+            }
         }
     }
 
@@ -90,7 +100,7 @@ class HotelActivity : AppActivity(), AppBarLayout.OnOffsetChangedListener, IHote
         }
 
     private fun createPresenter() {
-        hotelPresenter = HotelPresenter(HomePet.instance!!.hotelRepository!!)
+        hotelPresenter = HotelPresenter(HomePet.instance!!.hotelRepository)
         hotelPresenter!!.attachView(this)
     }
 

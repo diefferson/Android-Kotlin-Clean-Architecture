@@ -142,9 +142,8 @@ abstract class AppActivity : AppCompatActivity(), IAppActivityListener, IErrorHa
         }
     }
 
-    override fun inflateView(resource: Int, viewGroup: View): View {
-        return layoutInflater.inflate(resource, viewGroup.parent as ViewGroup, false)
-    }
+    override fun inflateView(resource: Int, viewGroup: View): View =
+            layoutInflater.inflate(resource, viewGroup.parent as ViewGroup, false)
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

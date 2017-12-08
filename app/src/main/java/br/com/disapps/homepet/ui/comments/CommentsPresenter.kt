@@ -3,10 +3,7 @@ package br.com.disapps.homepet.ui.comments
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter
 
 import br.com.disapps.homepet.data.cache.HotelRepository
-import br.com.disapps.homepet.data.model.Comment
-import br.com.disapps.homepet.data.model.Hotel
-import br.com.disapps.homepet.data.ws.response.HotelResponse
-import br.com.disapps.homepet.data.ws.response.ListCommentResponse
+import br.com.disapps.homepet.data.ws.response.ApiListResponse
 import br.com.disapps.homepet.util.rx.IErrorHandlerHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -30,8 +27,8 @@ class CommentsPresenter(private val mHotelRepository: HotelRepository) : MvpBase
         disposables.add(mHotelRepository.getComments(true, codeHotel)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableObserver<ListCommentResponse>() {
-                    override fun onNext(response: ListCommentResponse) {
+                .subscribeWith(object : DisposableObserver<ApiListResponse.ListCommentResponse>() {
+                    override fun onNext(response: ApiListResponse.ListCommentResponse) {
 
                         val comments = response.content
 

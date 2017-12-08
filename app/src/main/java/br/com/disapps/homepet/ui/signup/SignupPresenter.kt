@@ -2,15 +2,10 @@ package br.com.disapps.homepet.ui.signup
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter
 
-import br.com.disapps.homepet.BuildConfig
-import br.com.disapps.homepet.data.model.Auth
 import br.com.disapps.homepet.data.prefs.Preferences
 import br.com.disapps.homepet.data.ws.RestApi
-import br.com.disapps.homepet.data.ws.request.PasswordLoginRequest
 import br.com.disapps.homepet.data.ws.request.SignupRequest
 import br.com.disapps.homepet.data.ws.response.ApiSimpleResponse
-import br.com.disapps.homepet.data.ws.response.SignupResponse
-import br.com.disapps.homepet.ui.login.LoginPresenter
 import br.com.disapps.homepet.util.rx.IErrorHandlerHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -37,9 +32,9 @@ class SignupPresenter(private val restApi: RestApi, private val preferences: Pre
                 restApi.signup(request)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(object : DisposableObserver<SignupResponse>() {
+                        .subscribeWith(object : DisposableObserver<ApiSimpleResponse.SignUpResponse>() {
 
-                            override fun onNext(response: SignupResponse) {
+                            override fun onNext(response: ApiSimpleResponse.SignUpResponse) {
 
                                 if (isViewAttached) {
                                     view.dismissLoading()
