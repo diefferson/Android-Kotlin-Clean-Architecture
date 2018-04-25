@@ -1,0 +1,70 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.androidTargetSdkVersion
+    defaultConfig {
+        minSdkVersion rootProject.androidMinSdkVersion
+        targetSdkVersion rootProject.androidTargetSdkVersion
+        multiDexEnabled = true
+        buildConfigField 'String', 'PREFERENCES_FILE_KEY', "\"br.com.disapps.homepet.configs\""
+    }
+    buildTypes {
+        release {
+            buildConfigField 'boolean', 'HTTP_LOG_ENABLED', "false"
+            buildConfigField 'String', 'HOST', "\"${rootProject.ext.apiHostProd}\""
+            buildConfigField 'String', 'clientSecret',  "\"${rootProject.ext.clientSecretProd}\""
+        }
+        debug {
+            buildConfigField 'boolean', 'HTTP_LOG_ENABLED', "true"
+            buildConfigField 'String', 'HOST', "\"${rootProject.ext.apiHostDev}\""
+            buildConfigField 'String', 'clientSecret',  "\"${rootProject.ext.clientSecretDev}\""
+        }
+    }
+    dexOptions {
+        preDexLibraries = false
+        dexInProcess = false
+        javaMaxHeapSize "4g"
+    }
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+    }
+    lintOptions {
+        quiet true
+        abortOnError false
+        ignoreWarnings true
+        disable 'InvalidPackage'            //Some libraries have issues with this.
+        disable 'OldTargetApi'//Lint gives this warning but SDK 20 would be Android L Beta.
+        disable 'IconDensities'             //For testing purpose. This is safe to remove.
+        disable 'IconMissingDensityFolder'  //For testing purpose. This is safe to remove.
+    }
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
+
+dependencies {
+    def dataDependencies = rootProject.ext.dataDependencies
+    def dataTestDependencies = rootProject.ext.dataTestDependencies
+    testImplementation dataTestDependencies.kotlinJUnit
+    testImplementation dataTestDependencies.mockito
+    testImplementation dataTestDependencies.assertj
+    testImplementation dataTestDependencies.robolectric
+    implementation dataDependencies.kotlin
+    implementation dataDependencies.coroutines
+    implementation dataDependencies.okHttp
+    implementation dataDependencies.okHttpLogger
+    implementation dataDependencies.gson
+    implementation dataDependencies.retrofit
+    implementation dataDependencies.retrofitConverter
+    implementation dataDependencies.retrofitAdapter
+    implementation project(':domain')
+}

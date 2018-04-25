@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.1.60'
+    ext.kotlin_version = '1.2.31'
     repositories {
         google()
         jcenter()
@@ -7,54 +7,18 @@ buildscript {
         maven { url "https://jitpack.io" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.google.gms:google-services:3.1.0'
     }
 }
 
-allprojects {
-    repositories {
-        google()
-        jcenter()
-        mavenCentral()
-        maven { url "https://jitpack.io" }
-    }
-}
+apply from: 'dependencies.gradle'
 
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-ext{
-    // SDK
-    minSdkVersion = 19
-    targetSdkVersion = 27
-    compileSdkVersion = 27
-    buildToolsVersion = '27.0.1'
-
-    //Test
-    testRunnerVersion = '1.0.1'
-    espressoVersion = '3.0.1'
-    junitVersion = '4.12'
-
-    // Dependencies
-    supportVersion = '27.0.1'
-    firebaseVersion = '11.6.0'
-    playServicesVersion = '11.6.0'
-    mapsUtilsVersion = '0.4.4'
-    baseRecyclerVersion = '2.9.32'
-    mosbyVersion = '3.0.4'
-    pageIndicatorVersion = '0.2.0'
-    circleImageViewVersion = '2.2.0'
-    glideVersion = '4.3.1'
-    imagePickerCropperVersion = '1.2'
-    constraintLayoutVersion = '1.0.2'
-    retrofitVersion = '2.3.0'
-    okhttpVersion = '3.8.1'
-    rxJavaVersion = '2.1.0'
-    rxAndroidVersion = '2.0.1'
-    rxCacheVersion = '1.8.1-2.x'
-    rxCacheGsonVersion = '0.0.3'
-
+task copyTestClasses(type: Copy) {
+    from "build/tmp/kotlin-classes/debugUnitTest"
+    into "build/intermediates/classes/debug"
 }

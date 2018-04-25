@@ -1,0 +1,109 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: "kotlin-kapt"
+
+//Version information
+def versionMajor = 0
+def versionMinor = 1
+def versionPatch = 0
+
+android {
+    compileSdkVersion rootProject.androidTargetSdkVersion
+
+    defaultConfig {
+        applicationId "br.com.disapps.homepet"
+        minSdkVersion rootProject.androidMinSdkVersion
+        targetSdkVersion rootProject.androidTargetSdkVersion
+        versionCode versionMajor * 1000000 + versionMinor * 1000 + versionPatch * 100
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            testCoverageEnabled true
+        }
+    }
+
+    flavorDimensions "default"
+    productFlavors {
+        dev {
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+        }
+        prod {
+            applicationIdSuffix ""
+            versionNameSuffix ""
+        }
+    }
+
+    dexOptions {
+        preDexLibraries = false
+        dexInProcess = false
+        javaMaxHeapSize "4g"
+    }
+
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
+
+dependencies {
+    def presentationDependencies = rootProject.ext.presentationDependencies
+    def presentationTestDependencies = rootProject.ext.presentationTestDependencies
+    implementation project(':domain')
+    implementation project(':data')
+    implementation presentationDependencies.kotlin
+    implementation presentationDependencies.koin
+    implementation presentationDependencies.coroutinesAndroid
+    implementation presentationDependencies.koinArch
+    kapt presentationDependencies.archCompiler
+    implementation presentationDependencies.archExtensions
+    implementation presentationDependencies.appCompatV7
+    implementation presentationDependencies.supportV4
+    implementation presentationDependencies.supportDesign
+    implementation presentationDependencies.constraintLayout
+    implementation presentationDependencies.vectorDrawable
+    implementation presentationDependencies.cardView
+    implementation presentationDependencies.baseRecyclerView
+    implementation presentationDependencies.recyclerviewFastscroll
+    implementation presentationDependencies.pageIndicatorVersion
+    implementation presentationDependencies.glide
+
+    // Instrumentation test dependencies
+    testImplementation presentationTestDependencies.kotlinJUnit
+    androidTestImplementation presentationTestDependencies.junit
+    androidTestImplementation presentationTestDependencies.mockito
+    androidTestImplementation presentationTestDependencies.mockitoAndroid
+    androidTestImplementation(presentationTestDependencies.espressoCore) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestImplementation(presentationTestDependencies.androidRunner) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestImplementation(presentationTestDependencies.androidRules) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestImplementation(presentationTestDependencies.espressoIntents) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestImplementation(presentationTestDependencies.espressoContrib) {
+        exclude module: 'appcompat'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+        exclude module: 'support-v13'
+        exclude module: 'support-annotations'
+        exclude module: 'recyclerview-v7'
+        exclude module: 'design'
+    }
+}
